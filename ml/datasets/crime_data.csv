@@ -1,68 +1,601 @@
 text,label
-My 16-year-old daughter has been missing since yesterday evening. She went to the market and never returned. We cannot reach her phone.,0
-A stranger has been following my sister for the past week. He waits outside her office and follows her home every day. She is scared.,4
-I was assaulted by my neighbor during an argument. He punched me in the face and broke my nose. I have medical reports.,2
-"Someone hacked my bank account and transferred Rs 50,000 to an unknown account. I received a phishing email before this happened.",6
-My colleague touched me inappropriately at the office party. This has happened multiple times and I feel unsafe at work.,1
-A car hit my motorcycle and fled the scene. I sustained serious injuries and the driver did not stop to help.,5
-Someone stole my laptop and phone from my car while it was parked outside the mall.,8
-A person sold me fake gold jewelry claiming it was genuine. I paid Rs 2 lakhs and later found out it was fake.,7
-My husband beats me regularly and threatens to kill me if I tell anyone. I have injury marks on my body.,3
-Someone broke into my house last night and stole cash and jewelry worth Rs 1 lakh.,9
-A minor girl from our neighborhood has been missing for 3 days. Her parents suspect she was abducted.,0
-My ex-boyfriend keeps sending me threatening messages on social media saying he will harm me if I don't meet him.,4
-I was beaten by a group of people during a road rage incident. They attacked me with sticks and damaged my vehicle.,2
-"I received a fake job offer email asking for Rs 10,000 as registration fee. After paying, they blocked all communication.",6
-A man tried to molest my daughter in the park. She managed to escape but is traumatized.,1
-A truck hit my car from behind and the driver ran away. My car is badly damaged and I have whiplash injury.,5
-Two men on a bike snatched my purse while I was walking on the street. It had cash and all my important documents.,8
-An agent promised me a job abroad and took Rs 3 lakhs but never provided any documents or job.,7
-My neighbor's 8-year-old son has visible burn marks. I suspect the parents are abusing the child.,3
-Unknown people entered my farmland and are refusing to leave. They claim they bought the property.,9
-My teenage son went to school but never reached. His phone is switched off and no one has seen him.,0
-"A man has been standing outside my house for days and taking pictures. When I confront him, he threatens me.",4
-"During a fight at a wedding, someone stabbed me with a knife. I am hospitalized with serious injuries.",2
-My Instagram account was hacked and the hacker is posting inappropriate content and asking my contacts for money.,6
-I was raped by someone I met on a dating app. He forced himself on me despite my refusal.,1
-A speeding car hit a pedestrian near my house and drove away. The victim is critically injured.,5
-Armed robbers broke into my shop and took cash from the register at gunpoint.,8
-A company promised high returns on investment and took Rs 5 lakhs from me. Now they are not responding to calls.,7
-My daughter's teacher has been making inappropriate comments to her. She is scared to go to school.,3
-"Someone built a wall on my property boundary. When I asked them to remove it, they threatened me.",9
-A newspaper published false information about me that damaged my reputation in the community.,10
-My elderly mother was kidnapped from the hospital. The kidnappers are demanding Rs 10 lakhs ransom.,0
-My former employee keeps calling me with abusive language and threatens to harm my family.,4
-I was attacked with acid by someone. I have severe burns on my face and arms.,2
-Scammers created a fake website of my business and are collecting payments from customers.,6
-A family member sexually abused me for years. I want to file a complaint but I'm scared.,1
-A drunk driver crashed into my parked car and left without leaving any contact information.,5
-Thieves broke the lock of my shop and stole electronics worth Rs 2 lakhs.,8
-Someone used my PAN card and Aadhar to take loans. Now I'm receiving recovery notices.,7
-I witnessed a man beating a small child brutally in public. The child was crying for help.,3
-My neighbor illegally occupied part of my house while I was away. They refuse to vacate.,9
-Someone spread false rumors about my character on social media. It has affected my personal and professional life.,10
-My brother went missing after attending a party. We found his car abandoned but no sign of him.,0
-A stranger has been sending me obscene messages and pictures on WhatsApp despite blocking multiple numbers.,4
-I was beaten up by a mob during a political rally. I suffered fractures and internal injuries.,2
-I received an email claiming I won a lottery and asking for bank details. I shared my details and money was withdrawn.,6
-I was drugged and sexually assaulted at a party. I woke up with no memory and injuries.,1
-A bike rider hit my child while she was crossing the road and escaped without stopping.,5
-Burglars entered my house through the window and stole gold ornaments and cash.,8
-A person sold me a plot of land that doesn't exist. I paid full amount and now he's missing.,7
-My wife is being harassed by my family members for dowry. They threaten to throw her out.,3
-Someone forcibly entered my office premises and damaged property. They claim ownership of the building.,9
-A person made defamatory remarks about me during a public meeting that harmed my reputation.,10
-I found an abandoned child near the railway station. The child cannot speak and appears to be traumatized.,0
-Someone is blackmailing me with my private photos and demanding money to not release them publicly.,4
-I was attacked with a sharp weapon during a property dispute. I have deep cuts and required stitches.,2
-Hackers locked my computer files and are demanding Bitcoin payment to unlock them.,6
-A minor was sexually assaulted in our building. The suspect is known to the family.,1
-A vehicle hit our cow on the highway and didn't stop. The cow died on the spot.,5
-Someone stole my motorcycle from the parking lot. I have the registration details and CCTV footage.,8
-I invested in a cryptocurrency scheme that turned out to be a Ponzi scheme. I lost Rs 8 lakhs.,7
-A teacher has been physically punishing students brutally. My child has marks on his back.,3
-Unauthorized construction is happening on my ancestral property. The builders are threatening us.,9
-A group of people created disturbance during a religious procession leading to stone pelting.,10
-Someone poisoned the street dogs in our locality. Several dogs died and we suspect a resident.,11
-I want to report illegal sand mining happening near the river. The operators are damaging the environment.,11
-There is illegal liquor sale happening in our area. The shop operates without license.,11
+A minor girl was last seen near the bus stand in the morning and has been missing since.,0
+A child was allegedly lured away by a stranger offering sweets.,0
+A child was allegedly lured away by a stranger offering sweets.,0
+My brother was forced into a vehicle by unknown men near the market.,0
+My daughter left home for tuition at 6 PM and never returned.,0
+My brother was forced into a vehicle by unknown men near the market.,0
+My brother was forced into a vehicle by unknown men near the market.,0
+My daughter left home for tuition at 6 PM and never returned.,0
+"Yesterday evening, my son did not return home from school and his whereabouts are unknown.",0
+A child was allegedly lured away by a stranger offering sweets.,0
+My daughter left home for tuition at 6 PM and never returned.,0
+My daughter left home for tuition at 6 PM and never returned.,0
+A child was allegedly lured away by a stranger offering sweets.,0
+My daughter left home for tuition at 6 PM and never returned.,0
+My brother was forced into a vehicle by unknown men near the market.,0
+"Yesterday evening, my son did not return home from school and his whereabouts are unknown.",0
+"Yesterday evening, my son did not return home from school and his whereabouts are unknown.",0
+"Yesterday evening, my son did not return home from school and his whereabouts are unknown.",0
+My brother was forced into a vehicle by unknown men near the market.,0
+"Yesterday evening, my son did not return home from school and his whereabouts are unknown.",0
+"Yesterday evening, my son did not return home from school and his whereabouts are unknown.",0
+My daughter left home for tuition at 6 PM and never returned.,0
+My brother was forced into a vehicle by unknown men near the market.,0
+My brother was forced into a vehicle by unknown men near the market.,0
+My daughter left home for tuition at 6 PM and never returned.,0
+My brother was forced into a vehicle by unknown men near the market.,0
+"Yesterday evening, my son did not return home from school and his whereabouts are unknown.",0
+A minor girl was last seen near the bus stand in the morning and has been missing since.,0
+My brother was forced into a vehicle by unknown men near the market.,0
+My daughter left home for tuition at 6 PM and never returned.,0
+A minor girl was last seen near the bus stand in the morning and has been missing since.,0
+A child was allegedly lured away by a stranger offering sweets.,0
+My daughter left home for tuition at 6 PM and never returned.,0
+"Yesterday evening, my son did not return home from school and his whereabouts are unknown.",0
+My brother was forced into a vehicle by unknown men near the market.,0
+My daughter left home for tuition at 6 PM and never returned.,0
+A minor girl was last seen near the bus stand in the morning and has been missing since.,0
+My daughter left home for tuition at 6 PM and never returned.,0
+My daughter left home for tuition at 6 PM and never returned.,0
+"Yesterday evening, my son did not return home from school and his whereabouts are unknown.",0
+My daughter left home for tuition at 6 PM and never returned.,0
+My daughter left home for tuition at 6 PM and never returned.,0
+My brother was forced into a vehicle by unknown men near the market.,0
+A child was allegedly lured away by a stranger offering sweets.,0
+"Yesterday evening, my son did not return home from school and his whereabouts are unknown.",0
+My daughter left home for tuition at 6 PM and never returned.,0
+A child was allegedly lured away by a stranger offering sweets.,0
+A minor girl was last seen near the bus stand in the morning and has been missing since.,0
+"Yesterday evening, my son did not return home from school and his whereabouts are unknown.",0
+A child was allegedly lured away by a stranger offering sweets.,0
+I was subjected to sexual harassment by my supervisor at the workplace.,1
+The accused attempted to molest me near the cinema hall late at night.,1
+The complainant was forcibly groped in a public place.,1
+An unknown man exposed himself to me while I was walking home.,1
+A man touched me inappropriately inside a crowded bus without my consent.,1
+An unknown man exposed himself to me while I was walking home.,1
+The accused attempted to molest me near the cinema hall late at night.,1
+An unknown man exposed himself to me while I was walking home.,1
+A man touched me inappropriately inside a crowded bus without my consent.,1
+The complainant was forcibly groped in a public place.,1
+An unknown man exposed himself to me while I was walking home.,1
+The complainant was forcibly groped in a public place.,1
+I was subjected to sexual harassment by my supervisor at the workplace.,1
+I was subjected to sexual harassment by my supervisor at the workplace.,1
+The accused attempted to molest me near the cinema hall late at night.,1
+A man touched me inappropriately inside a crowded bus without my consent.,1
+The accused attempted to molest me near the cinema hall late at night.,1
+A man touched me inappropriately inside a crowded bus without my consent.,1
+The complainant was forcibly groped in a public place.,1
+The complainant was forcibly groped in a public place.,1
+A man touched me inappropriately inside a crowded bus without my consent.,1
+A man touched me inappropriately inside a crowded bus without my consent.,1
+An unknown man exposed himself to me while I was walking home.,1
+The complainant was forcibly groped in a public place.,1
+I was subjected to sexual harassment by my supervisor at the workplace.,1
+I was subjected to sexual harassment by my supervisor at the workplace.,1
+A man touched me inappropriately inside a crowded bus without my consent.,1
+The accused attempted to molest me near the cinema hall late at night.,1
+A man touched me inappropriately inside a crowded bus without my consent.,1
+An unknown man exposed himself to me while I was walking home.,1
+An unknown man exposed himself to me while I was walking home.,1
+A man touched me inappropriately inside a crowded bus without my consent.,1
+An unknown man exposed himself to me while I was walking home.,1
+An unknown man exposed himself to me while I was walking home.,1
+An unknown man exposed himself to me while I was walking home.,1
+An unknown man exposed himself to me while I was walking home.,1
+An unknown man exposed himself to me while I was walking home.,1
+I was subjected to sexual harassment by my supervisor at the workplace.,1
+The complainant was forcibly groped in a public place.,1
+The complainant was forcibly groped in a public place.,1
+I was subjected to sexual harassment by my supervisor at the workplace.,1
+The complainant was forcibly groped in a public place.,1
+The complainant was forcibly groped in a public place.,1
+The complainant was forcibly groped in a public place.,1
+A man touched me inappropriately inside a crowded bus without my consent.,1
+The complainant was forcibly groped in a public place.,1
+A man touched me inappropriately inside a crowded bus without my consent.,1
+I was subjected to sexual harassment by my supervisor at the workplace.,1
+I was subjected to sexual harassment by my supervisor at the workplace.,1
+The complainant was forcibly groped in a public place.,1
+I was beaten by a group of youths near the playground.,2
+The accused slapped and kicked the complainant during an argument.,2
+Two men attacked my brother near the railway bridge causing injuries.,2
+A drunk man punched me repeatedly outside a shop.,2
+The accused slapped and kicked the complainant during an argument.,2
+The accused slapped and kicked the complainant during an argument.,2
+My neighbor assaulted me with a stick during a dispute over parking.,2
+A drunk man punched me repeatedly outside a shop.,2
+The accused slapped and kicked the complainant during an argument.,2
+A drunk man punched me repeatedly outside a shop.,2
+I was beaten by a group of youths near the playground.,2
+The accused slapped and kicked the complainant during an argument.,2
+Two men attacked my brother near the railway bridge causing injuries.,2
+Two men attacked my brother near the railway bridge causing injuries.,2
+A drunk man punched me repeatedly outside a shop.,2
+My neighbor assaulted me with a stick during a dispute over parking.,2
+A drunk man punched me repeatedly outside a shop.,2
+A drunk man punched me repeatedly outside a shop.,2
+A drunk man punched me repeatedly outside a shop.,2
+The accused slapped and kicked the complainant during an argument.,2
+Two men attacked my brother near the railway bridge causing injuries.,2
+I was beaten by a group of youths near the playground.,2
+I was beaten by a group of youths near the playground.,2
+The accused slapped and kicked the complainant during an argument.,2
+I was beaten by a group of youths near the playground.,2
+Two men attacked my brother near the railway bridge causing injuries.,2
+My neighbor assaulted me with a stick during a dispute over parking.,2
+The accused slapped and kicked the complainant during an argument.,2
+My neighbor assaulted me with a stick during a dispute over parking.,2
+A drunk man punched me repeatedly outside a shop.,2
+My neighbor assaulted me with a stick during a dispute over parking.,2
+The accused slapped and kicked the complainant during an argument.,2
+I was beaten by a group of youths near the playground.,2
+Two men attacked my brother near the railway bridge causing injuries.,2
+I was beaten by a group of youths near the playground.,2
+Two men attacked my brother near the railway bridge causing injuries.,2
+My neighbor assaulted me with a stick during a dispute over parking.,2
+I was beaten by a group of youths near the playground.,2
+A drunk man punched me repeatedly outside a shop.,2
+The accused slapped and kicked the complainant during an argument.,2
+I was beaten by a group of youths near the playground.,2
+The accused slapped and kicked the complainant during an argument.,2
+I was beaten by a group of youths near the playground.,2
+The accused slapped and kicked the complainant during an argument.,2
+My neighbor assaulted me with a stick during a dispute over parking.,2
+My neighbor assaulted me with a stick during a dispute over parking.,2
+Two men attacked my brother near the railway bridge causing injuries.,2
+A drunk man punched me repeatedly outside a shop.,2
+Two men attacked my brother near the railway bridge causing injuries.,2
+Two men attacked my brother near the railway bridge causing injuries.,2
+My husband threatened to kill me if I complained to the police.,3
+My husband threatened to kill me if I complained to the police.,3
+A child has been physically abused by a family member.,3
+A child has been physically abused by a family member.,3
+My husband physically assaults me regularly and threatens me.,3
+My husband threatened to kill me if I complained to the police.,3
+My husband threatened to kill me if I complained to the police.,3
+A child has been physically abused by a family member.,3
+My husband physically assaults me regularly and threatens me.,3
+A child has been physically abused by a family member.,3
+My husband physically assaults me regularly and threatens me.,3
+A child has been physically abused by a family member.,3
+A minor is being neglected and mistreated at home.,3
+My husband physically assaults me regularly and threatens me.,3
+The complainant is being mentally tortured by her in-laws for dowry.,3
+A minor is being neglected and mistreated at home.,3
+My husband physically assaults me regularly and threatens me.,3
+My husband physically assaults me regularly and threatens me.,3
+A minor is being neglected and mistreated at home.,3
+The complainant is being mentally tortured by her in-laws for dowry.,3
+A minor is being neglected and mistreated at home.,3
+My husband threatened to kill me if I complained to the police.,3
+A child has been physically abused by a family member.,3
+The complainant is being mentally tortured by her in-laws for dowry.,3
+A child has been physically abused by a family member.,3
+My husband threatened to kill me if I complained to the police.,3
+My husband physically assaults me regularly and threatens me.,3
+A minor is being neglected and mistreated at home.,3
+A child has been physically abused by a family member.,3
+The complainant is being mentally tortured by her in-laws for dowry.,3
+My husband threatened to kill me if I complained to the police.,3
+The complainant is being mentally tortured by her in-laws for dowry.,3
+A minor is being neglected and mistreated at home.,3
+My husband threatened to kill me if I complained to the police.,3
+The complainant is being mentally tortured by her in-laws for dowry.,3
+My husband physically assaults me regularly and threatens me.,3
+A child has been physically abused by a family member.,3
+My husband threatened to kill me if I complained to the police.,3
+A child has been physically abused by a family member.,3
+My husband threatened to kill me if I complained to the police.,3
+My husband threatened to kill me if I complained to the police.,3
+A child has been physically abused by a family member.,3
+My husband threatened to kill me if I complained to the police.,3
+The complainant is being mentally tortured by her in-laws for dowry.,3
+The complainant is being mentally tortured by her in-laws for dowry.,3
+My husband physically assaults me regularly and threatens me.,3
+My husband physically assaults me regularly and threatens me.,3
+The complainant is being mentally tortured by her in-laws for dowry.,3
+A minor is being neglected and mistreated at home.,3
+The complainant is being mentally tortured by her in-laws for dowry.,3
+I am being stalked online through fake social media accounts.,4
+I am being stalked online through fake social media accounts.,4
+The complainant is receiving continuous threats to her family.,4
+I am being stalked online through fake social media accounts.,4
+An unknown person keeps calling and threatening me daily.,4
+I am being stalked online through fake social media accounts.,4
+I am being stalked online through fake social media accounts.,4
+The accused is sending repeated threatening messages.,4
+An unknown person keeps calling and threatening me daily.,4
+The accused is sending repeated threatening messages.,4
+I am being followed by a man on my way to work.,4
+The complainant is receiving continuous threats to her family.,4
+I am being stalked online through fake social media accounts.,4
+I am being stalked online through fake social media accounts.,4
+I am being stalked online through fake social media accounts.,4
+The complainant is receiving continuous threats to her family.,4
+I am being stalked online through fake social media accounts.,4
+I am being stalked online through fake social media accounts.,4
+An unknown person keeps calling and threatening me daily.,4
+The complainant is receiving continuous threats to her family.,4
+The complainant is receiving continuous threats to her family.,4
+I am being followed by a man on my way to work.,4
+The accused is sending repeated threatening messages.,4
+The accused is sending repeated threatening messages.,4
+I am being stalked online through fake social media accounts.,4
+The accused is sending repeated threatening messages.,4
+The accused is sending repeated threatening messages.,4
+The accused is sending repeated threatening messages.,4
+I am being followed by a man on my way to work.,4
+I am being followed by a man on my way to work.,4
+An unknown person keeps calling and threatening me daily.,4
+The accused is sending repeated threatening messages.,4
+The complainant is receiving continuous threats to her family.,4
+The accused is sending repeated threatening messages.,4
+The accused is sending repeated threatening messages.,4
+I am being followed by a man on my way to work.,4
+I am being followed by a man on my way to work.,4
+I am being stalked online through fake social media accounts.,4
+I am being stalked online through fake social media accounts.,4
+The accused is sending repeated threatening messages.,4
+The complainant is receiving continuous threats to her family.,4
+The accused is sending repeated threatening messages.,4
+An unknown person keeps calling and threatening me daily.,4
+I am being stalked online through fake social media accounts.,4
+An unknown person keeps calling and threatening me daily.,4
+The complainant is receiving continuous threats to her family.,4
+The complainant is receiving continuous threats to her family.,4
+I am being stalked online through fake social media accounts.,4
+I am being followed by a man on my way to work.,4
+The accused is sending repeated threatening messages.,4
+The victim was injured in a hit-and-run accident near the signal.,5
+The victim was injured in a hit-and-run accident near the signal.,5
+An unknown vehicle collided with my scooter and ran away.,5
+An unknown vehicle collided with my scooter and ran away.,5
+A speeding truck knocked down a pedestrian and escaped.,5
+A bike accident occurred and the rider fled immediately.,5
+The victim was injured in a hit-and-run accident near the signal.,5
+A car hit my bike and fled the scene without stopping.,5
+A speeding truck knocked down a pedestrian and escaped.,5
+The victim was injured in a hit-and-run accident near the signal.,5
+A speeding truck knocked down a pedestrian and escaped.,5
+A speeding truck knocked down a pedestrian and escaped.,5
+A speeding truck knocked down a pedestrian and escaped.,5
+A car hit my bike and fled the scene without stopping.,5
+A bike accident occurred and the rider fled immediately.,5
+An unknown vehicle collided with my scooter and ran away.,5
+The victim was injured in a hit-and-run accident near the signal.,5
+A bike accident occurred and the rider fled immediately.,5
+An unknown vehicle collided with my scooter and ran away.,5
+A bike accident occurred and the rider fled immediately.,5
+A bike accident occurred and the rider fled immediately.,5
+A car hit my bike and fled the scene without stopping.,5
+An unknown vehicle collided with my scooter and ran away.,5
+A car hit my bike and fled the scene without stopping.,5
+An unknown vehicle collided with my scooter and ran away.,5
+A speeding truck knocked down a pedestrian and escaped.,5
+A car hit my bike and fled the scene without stopping.,5
+The victim was injured in a hit-and-run accident near the signal.,5
+A bike accident occurred and the rider fled immediately.,5
+A car hit my bike and fled the scene without stopping.,5
+A car hit my bike and fled the scene without stopping.,5
+The victim was injured in a hit-and-run accident near the signal.,5
+The victim was injured in a hit-and-run accident near the signal.,5
+The victim was injured in a hit-and-run accident near the signal.,5
+The victim was injured in a hit-and-run accident near the signal.,5
+A car hit my bike and fled the scene without stopping.,5
+An unknown vehicle collided with my scooter and ran away.,5
+The victim was injured in a hit-and-run accident near the signal.,5
+A speeding truck knocked down a pedestrian and escaped.,5
+A car hit my bike and fled the scene without stopping.,5
+A speeding truck knocked down a pedestrian and escaped.,5
+An unknown vehicle collided with my scooter and ran away.,5
+The victim was injured in a hit-and-run accident near the signal.,5
+The victim was injured in a hit-and-run accident near the signal.,5
+A speeding truck knocked down a pedestrian and escaped.,5
+An unknown vehicle collided with my scooter and ran away.,5
+A car hit my bike and fled the scene without stopping.,5
+The victim was injured in a hit-and-run accident near the signal.,5
+A bike accident occurred and the rider fled immediately.,5
+The victim was injured in a hit-and-run accident near the signal.,5
+Someone hacked my email account and changed the password.,6
+My phone was infected with malware after clicking a suspicious link.,6
+Someone hacked my email account and changed the password.,6
+Someone hacked my email account and changed the password.,6
+Someone hacked my email account and changed the password.,6
+My bank account was accessed through a phishing link and money was stolen.,6
+My phone was infected with malware after clicking a suspicious link.,6
+My bank account was accessed through a phishing link and money was stolen.,6
+I lost money due to an online OTP fraud.,6
+I lost money due to an online OTP fraud.,6
+My phone was infected with malware after clicking a suspicious link.,6
+My bank account was accessed through a phishing link and money was stolen.,6
+My phone was infected with malware after clicking a suspicious link.,6
+Someone hacked my email account and changed the password.,6
+Someone hacked my email account and changed the password.,6
+I lost money due to an online OTP fraud.,6
+I lost money due to an online OTP fraud.,6
+My bank account was accessed through a phishing link and money was stolen.,6
+A fake social media profile was created using my photos.,6
+My bank account was accessed through a phishing link and money was stolen.,6
+My phone was infected with malware after clicking a suspicious link.,6
+My phone was infected with malware after clicking a suspicious link.,6
+A fake social media profile was created using my photos.,6
+A fake social media profile was created using my photos.,6
+My bank account was accessed through a phishing link and money was stolen.,6
+My phone was infected with malware after clicking a suspicious link.,6
+My phone was infected with malware after clicking a suspicious link.,6
+Someone hacked my email account and changed the password.,6
+A fake social media profile was created using my photos.,6
+My bank account was accessed through a phishing link and money was stolen.,6
+I lost money due to an online OTP fraud.,6
+Someone hacked my email account and changed the password.,6
+My bank account was accessed through a phishing link and money was stolen.,6
+Someone hacked my email account and changed the password.,6
+Someone hacked my email account and changed the password.,6
+A fake social media profile was created using my photos.,6
+A fake social media profile was created using my photos.,6
+Someone hacked my email account and changed the password.,6
+My phone was infected with malware after clicking a suspicious link.,6
+My phone was infected with malware after clicking a suspicious link.,6
+My bank account was accessed through a phishing link and money was stolen.,6
+My bank account was accessed through a phishing link and money was stolen.,6
+My bank account was accessed through a phishing link and money was stolen.,6
+My phone was infected with malware after clicking a suspicious link.,6
+My bank account was accessed through a phishing link and money was stolen.,6
+I lost money due to an online OTP fraud.,6
+My phone was infected with malware after clicking a suspicious link.,6
+A fake social media profile was created using my photos.,6
+I lost money due to an online OTP fraud.,6
+My phone was infected with malware after clicking a suspicious link.,6
+I was scammed through a fake online shopping website.,7
+A fraudster took advance money for a product and never delivered it.,7
+I was cheated by a fake job offer demanding registration fees.,7
+A fraudster took advance money for a product and never delivered it.,7
+I was cheated by a fake job offer demanding registration fees.,7
+A fraudster took advance money for a product and never delivered it.,7
+The complainant lost money in a fake investment scheme.,7
+I was cheated by a fake job offer demanding registration fees.,7
+A person impersonated a bank official and stole money.,7
+I was scammed through a fake online shopping website.,7
+I was scammed through a fake online shopping website.,7
+I was scammed through a fake online shopping website.,7
+The complainant lost money in a fake investment scheme.,7
+A fraudster took advance money for a product and never delivered it.,7
+I was cheated by a fake job offer demanding registration fees.,7
+I was scammed through a fake online shopping website.,7
+The complainant lost money in a fake investment scheme.,7
+A fraudster took advance money for a product and never delivered it.,7
+The complainant lost money in a fake investment scheme.,7
+I was scammed through a fake online shopping website.,7
+A person impersonated a bank official and stole money.,7
+The complainant lost money in a fake investment scheme.,7
+A fraudster took advance money for a product and never delivered it.,7
+A person impersonated a bank official and stole money.,7
+The complainant lost money in a fake investment scheme.,7
+The complainant lost money in a fake investment scheme.,7
+A person impersonated a bank official and stole money.,7
+I was scammed through a fake online shopping website.,7
+A fraudster took advance money for a product and never delivered it.,7
+I was scammed through a fake online shopping website.,7
+The complainant lost money in a fake investment scheme.,7
+I was scammed through a fake online shopping website.,7
+A person impersonated a bank official and stole money.,7
+I was scammed through a fake online shopping website.,7
+I was cheated by a fake job offer demanding registration fees.,7
+A fraudster took advance money for a product and never delivered it.,7
+A fraudster took advance money for a product and never delivered it.,7
+I was cheated by a fake job offer demanding registration fees.,7
+A fraudster took advance money for a product and never delivered it.,7
+A person impersonated a bank official and stole money.,7
+The complainant lost money in a fake investment scheme.,7
+A person impersonated a bank official and stole money.,7
+I was cheated by a fake job offer demanding registration fees.,7
+I was cheated by a fake job offer demanding registration fees.,7
+The complainant lost money in a fake investment scheme.,7
+I was cheated by a fake job offer demanding registration fees.,7
+A fraudster took advance money for a product and never delivered it.,7
+The complainant lost money in a fake investment scheme.,7
+A fraudster took advance money for a product and never delivered it.,7
+A person impersonated a bank official and stole money.,7
+My bike was stolen from outside my house at night.,8
+Someone snatched my purse near the market.,8
+Someone snatched my purse near the market.,8
+My mobile phone was stolen from my pocket in a crowded bus.,8
+My bike was stolen from outside my house at night.,8
+My mobile phone was stolen from my pocket in a crowded bus.,8
+My wallet was pickpocketed at the bus stand.,8
+My wallet was pickpocketed at the bus stand.,8
+My bike was stolen from outside my house at night.,8
+My mobile phone was stolen from my pocket in a crowded bus.,8
+A thief broke into my house and stole valuables.,8
+Someone snatched my purse near the market.,8
+Someone snatched my purse near the market.,8
+Someone snatched my purse near the market.,8
+My bike was stolen from outside my house at night.,8
+My mobile phone was stolen from my pocket in a crowded bus.,8
+Someone snatched my purse near the market.,8
+A thief broke into my house and stole valuables.,8
+My wallet was pickpocketed at the bus stand.,8
+My bike was stolen from outside my house at night.,8
+A thief broke into my house and stole valuables.,8
+My bike was stolen from outside my house at night.,8
+Someone snatched my purse near the market.,8
+A thief broke into my house and stole valuables.,8
+My mobile phone was stolen from my pocket in a crowded bus.,8
+My mobile phone was stolen from my pocket in a crowded bus.,8
+My bike was stolen from outside my house at night.,8
+My wallet was pickpocketed at the bus stand.,8
+My bike was stolen from outside my house at night.,8
+My wallet was pickpocketed at the bus stand.,8
+Someone snatched my purse near the market.,8
+Someone snatched my purse near the market.,8
+Someone snatched my purse near the market.,8
+Someone snatched my purse near the market.,8
+Someone snatched my purse near the market.,8
+A thief broke into my house and stole valuables.,8
+My wallet was pickpocketed at the bus stand.,8
+My bike was stolen from outside my house at night.,8
+My mobile phone was stolen from my pocket in a crowded bus.,8
+My bike was stolen from outside my house at night.,8
+My bike was stolen from outside my house at night.,8
+Someone snatched my purse near the market.,8
+My wallet was pickpocketed at the bus stand.,8
+My wallet was pickpocketed at the bus stand.,8
+A thief broke into my house and stole valuables.,8
+Someone snatched my purse near the market.,8
+My bike was stolen from outside my house at night.,8
+My mobile phone was stolen from my pocket in a crowded bus.,8
+My mobile phone was stolen from my pocket in a crowded bus.,8
+My wallet was pickpocketed at the bus stand.,8
+Unknown persons entered my property without permission.,9
+Someone broke into my compound late at night.,9
+Unknown persons entered my property without permission.,9
+A stranger entered my house compound forcefully.,9
+My neighbor is illegally encroaching on my land.,9
+Illegal construction is being done on my property.,9
+My neighbor is illegally encroaching on my land.,9
+Illegal construction is being done on my property.,9
+Illegal construction is being done on my property.,9
+Unknown persons entered my property without permission.,9
+Illegal construction is being done on my property.,9
+A stranger entered my house compound forcefully.,9
+A stranger entered my house compound forcefully.,9
+Someone broke into my compound late at night.,9
+Illegal construction is being done on my property.,9
+Illegal construction is being done on my property.,9
+Unknown persons entered my property without permission.,9
+Someone broke into my compound late at night.,9
+Illegal construction is being done on my property.,9
+Unknown persons entered my property without permission.,9
+Unknown persons entered my property without permission.,9
+Illegal construction is being done on my property.,9
+A stranger entered my house compound forcefully.,9
+My neighbor is illegally encroaching on my land.,9
+Someone broke into my compound late at night.,9
+Unknown persons entered my property without permission.,9
+Illegal construction is being done on my property.,9
+My neighbor is illegally encroaching on my land.,9
+Someone broke into my compound late at night.,9
+Illegal construction is being done on my property.,9
+Illegal construction is being done on my property.,9
+Someone broke into my compound late at night.,9
+Unknown persons entered my property without permission.,9
+Illegal construction is being done on my property.,9
+Illegal construction is being done on my property.,9
+Unknown persons entered my property without permission.,9
+Unknown persons entered my property without permission.,9
+My neighbor is illegally encroaching on my land.,9
+A stranger entered my house compound forcefully.,9
+A stranger entered my house compound forcefully.,9
+A stranger entered my house compound forcefully.,9
+A stranger entered my house compound forcefully.,9
+Someone broke into my compound late at night.,9
+My neighbor is illegally encroaching on my land.,9
+Illegal construction is being done on my property.,9
+Illegal construction is being done on my property.,9
+Someone broke into my compound late at night.,9
+My neighbor is illegally encroaching on my land.,9
+A stranger entered my house compound forcefully.,9
+Unknown persons entered my property without permission.,9
+My reputation was harmed by false online reviews.,10
+Someone spread fake rumors damaging my reputation.,10
+The accused made false statements about my business.,10
+My reputation was harmed by false online reviews.,10
+False allegations were posted about me on social media.,10
+False allegations were posted about me on social media.,10
+Someone spread fake rumors damaging my reputation.,10
+The accused made false statements about my business.,10
+The accused made false statements about my business.,10
+The accused made false statements about my business.,10
+Someone spread fake rumors damaging my reputation.,10
+A defamatory message was circulated in a public group.,10
+The accused made false statements about my business.,10
+A defamatory message was circulated in a public group.,10
+The accused made false statements about my business.,10
+Someone spread fake rumors damaging my reputation.,10
+My reputation was harmed by false online reviews.,10
+False allegations were posted about me on social media.,10
+Someone spread fake rumors damaging my reputation.,10
+My reputation was harmed by false online reviews.,10
+Someone spread fake rumors damaging my reputation.,10
+My reputation was harmed by false online reviews.,10
+A defamatory message was circulated in a public group.,10
+The accused made false statements about my business.,10
+False allegations were posted about me on social media.,10
+Someone spread fake rumors damaging my reputation.,10
+Someone spread fake rumors damaging my reputation.,10
+My reputation was harmed by false online reviews.,10
+A defamatory message was circulated in a public group.,10
+My reputation was harmed by false online reviews.,10
+A defamatory message was circulated in a public group.,10
+A defamatory message was circulated in a public group.,10
+False allegations were posted about me on social media.,10
+My reputation was harmed by false online reviews.,10
+The accused made false statements about my business.,10
+Someone spread fake rumors damaging my reputation.,10
+The accused made false statements about my business.,10
+A defamatory message was circulated in a public group.,10
+Someone spread fake rumors damaging my reputation.,10
+A defamatory message was circulated in a public group.,10
+False allegations were posted about me on social media.,10
+The accused made false statements about my business.,10
+A defamatory message was circulated in a public group.,10
+A defamatory message was circulated in a public group.,10
+The accused made false statements about my business.,10
+The accused made false statements about my business.,10
+The accused made false statements about my business.,10
+The accused made false statements about my business.,10
+The accused made false statements about my business.,10
+A defamatory message was circulated in a public group.,10
+I witnessed an argument but do not know if it was a crime.,11
+I noticed suspicious activity near my house but am unsure of the crime.,11
+I noticed suspicious activity near my house but am unsure of the crime.,11
+I witnessed an argument but do not know if it was a crime.,11
+There was a disturbance in the neighborhood but details are unclear.,11
+Something strange happened and I am not sure how to report it.,11
+I noticed suspicious activity near my house but am unsure of the crime.,11
+There was a disturbance in the neighborhood but details are unclear.,11
+Something strange happened and I am not sure how to report it.,11
+I noticed suspicious activity near my house but am unsure of the crime.,11
+There was a disturbance in the neighborhood but details are unclear.,11
+Something strange happened and I am not sure how to report it.,11
+I need guidance regarding an unusual incident.,11
+I need guidance regarding an unusual incident.,11
+Something strange happened and I am not sure how to report it.,11
+I noticed suspicious activity near my house but am unsure of the crime.,11
+I need guidance regarding an unusual incident.,11
+There was a disturbance in the neighborhood but details are unclear.,11
+Something strange happened and I am not sure how to report it.,11
+I noticed suspicious activity near my house but am unsure of the crime.,11
+There was a disturbance in the neighborhood but details are unclear.,11
+I need guidance regarding an unusual incident.,11
+Something strange happened and I am not sure how to report it.,11
+Something strange happened and I am not sure how to report it.,11
+There was a disturbance in the neighborhood but details are unclear.,11
+There was a disturbance in the neighborhood but details are unclear.,11
+I need guidance regarding an unusual incident.,11
+I need guidance regarding an unusual incident.,11
+I need guidance regarding an unusual incident.,11
+There was a disturbance in the neighborhood but details are unclear.,11
+I noticed suspicious activity near my house but am unsure of the crime.,11
+I witnessed an argument but do not know if it was a crime.,11
+I need guidance regarding an unusual incident.,11
+I witnessed an argument but do not know if it was a crime.,11
+I need guidance regarding an unusual incident.,11
+I noticed suspicious activity near my house but am unsure of the crime.,11
+I witnessed an argument but do not know if it was a crime.,11
+I noticed suspicious activity near my house but am unsure of the crime.,11
+Something strange happened and I am not sure how to report it.,11
+I witnessed an argument but do not know if it was a crime.,11
+There was a disturbance in the neighborhood but details are unclear.,11
+Something strange happened and I am not sure how to report it.,11
+I need guidance regarding an unusual incident.,11
+Something strange happened and I am not sure how to report it.,11
+Something strange happened and I am not sure how to report it.,11
+I need guidance regarding an unusual incident.,11
+I need guidance regarding an unusual incident.,11
+I noticed suspicious activity near my house but am unsure of the crime.,11
+I noticed suspicious activity near my house but am unsure of the crime.,11
+I witnessed an argument but do not know if it was a crime.,11

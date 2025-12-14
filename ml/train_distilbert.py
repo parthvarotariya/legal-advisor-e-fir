@@ -1,6 +1,6 @@
 """
-Train DistilBERT as a frozen feature extractor
-Legal complaint classification (NO fine-tuning)
+Fine-tuned DistilBERT
+Legal Complaint Classification (WITH fine-tuning)
 """
 
 import os
@@ -8,7 +8,11 @@ import json
 import pandas as pd
 import torch
 from torch.utils.data import Dataset, DataLoader
-from transformers import DistilBertTokenizer, DistilBertForSequenceClassification
+from transformers import (
+    DistilBertTokenizer,
+    DistilBertForSequenceClassification
+)
+from torch.optim import AdamW
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, classification_report
 from utils.preprocess import clean_text
@@ -43,8 +47,6 @@ print(f"Number of classes: {num_labels}")
 # Load dataset
 # =========================
 df = pd.read_csv(DATASET_PATH)
-
-# Minimal preprocessing (dataframe level – OK here)
 df["text"] = df["text"].apply(clean_text)
 
 texts = df["text"].values
@@ -103,9 +105,9 @@ model = DistilBertForSequenceClassification.from_pretrained(
     num_labels=num_labels
 )
 
-# 🔒 FREEZE DISTILBERT (NO FINE-TUNING)
-for param in model.distilbert.parameters():
-    param.requires_grad = False
+# 🔓 UNFREEZE DISTILBERT (FINE-TUNING)
+for param in model.parameters():
+    param.requires_grad = True
 
 model.to(device)
 
@@ -123,11 +125,12 @@ val_loader = DataLoader(val_dataset, batch_size=BATCH_SIZE)
 
 
 # =========================
-# Optimizer (ONLY classifier)
+# Optimizer & Loss
 # =========================
-optimizer = torch.optim.Adam(
-    model.classifier.parameters(),
-    lr=1e-3
+optimizer = AdamW(
+    model.parameters(),
+    lr=2e-5,              # ✅ Correct LR for fine-tuning
+    weight_decay=0.01
 )
 
 loss_fn = torch.nn.CrossEntropyLoss()
@@ -136,7 +139,7 @@ loss_fn = torch.nn.CrossEntropyLoss()
 # =========================
 # Training loop
 # =========================
-EPOCHS = 5
+EPOCHS = 4
 
 for epoch in range(EPOCHS):
     model.train()
@@ -151,11 +154,14 @@ for epoch in range(EPOCHS):
 
         outputs = model(
             input_ids=input_ids,
-            attention_mask=attention_mask
+            attention_mask=attention_mask,
+            labels=labels
         )
 
-        loss = loss_fn(outputs.logits, labels)
+        loss = outputs.loss
         loss.backward()
+
+        torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
         optimizer.step()
 
         total_loss += loss.item()
@@ -182,18 +188,18 @@ for epoch in range(EPOCHS):
 
     acc = accuracy_score(true_labels, preds)
 
-    print(f"Epoch {epoch + 1}/{EPOCHS}")
+    print(f"\nEpoch {epoch + 1}/{EPOCHS}")
     print(f"Train Loss: {avg_loss:.4f}")
     print(f"Validation Accuracy: {acc:.4f}")
     print("-" * 40)
 
 
 # =========================
-# Final evaluation report
+# Final evaluation
 # =========================
 label_names = [label_map["label_to_name"][str(i)] for i in range(num_labels)]
 
 print("\nClassification Report:")
 print(classification_report(true_labels, preds, target_names=label_names))
 
-print("\nTraining completed (WITHOUT fine-tuning DistilBERT).")
+print("\nTraining completed (WITH fine-tuning DistilBERT).")
