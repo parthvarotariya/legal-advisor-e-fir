@@ -1,0 +1,30 @@
+{
+  "label_to_name": {
+    "0": "kidnapping",
+    "1": "sexual_offence",
+    "2": "assault",
+    "3": "women_child_safety",
+    "4": "harassment",
+    "5": "accident",
+    "6": "cybercrime",
+    "7": "fraud",
+    "8": "theft",
+    "9": "trespass",
+    "10": "defamation",
+    "11": "other"
+  },
+  "name_to_full": {
+    "kidnapping": "Kidnapping / Abduction / Missing Person (BNS 140–151)",
+    "sexual_offence": "Sexual Offences (BNS 63–70)",
+    "assault": "Assault / Hurt / Violence (BNS 115–140)",
+    "women_child_safety": "Women & Child Safety (BNS 86 + POCSO)",
+    "harassment": "Harassment / Threats / Stalking (BNS 351–353)",
+    "accident": "Accident / Hit & Run (BNS 106, 112, 279)",
+    "cybercrime": "Cybercrime (IT Act + BNS mapping)",
+    "fraud": "Fraud / Cheating / Financial Crimes (BNS 318–324)",
+    "theft": "Theft & Robbery (BNS 303–309)",
+    "trespass": "Trespass / Housebreaking / Property Disputes (BNS 332–335)",
+    "defamation": "Defamation / Public Order Offences (BNS 356–357, 147–150)",
+    "other": "Other / Cannot Classify"
+  }
+}
