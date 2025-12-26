@@ -46,11 +46,20 @@ print(f"Number of classes: {num_labels}")
 # =========================
 # Load dataset
 # =========================
-df = pd.read_csv(DATASET_PATH)
-df["text"] = df["text"].apply(clean_text)
+# Read CSV by splitting from the right to handle commas in text
+texts_list = []
+labels_list = []
+with open(DATASET_PATH, 'r', encoding='utf-8') as f:
+    for line in f:
+        parts = line.strip().rsplit(',', 1)
+        if len(parts) == 2:
+            texts_list.append(clean_text(parts[0]))
+            labels_list.append(int(parts[1]))
 
-texts = df["text"].values
-labels = df["label"].values
+texts = pd.Series(texts_list).values
+labels = pd.Series(labels_list).values
+
+print(f"Loaded {len(texts)} samples")
 
 
 # =========================
@@ -203,3 +212,15 @@ print("\nClassification Report:")
 print(classification_report(true_labels, preds, target_names=label_names))
 
 print("\nTraining completed (WITH fine-tuning DistilBERT).")
+
+
+# =========================
+# Save model and tokenizer
+# =========================
+MODEL_SAVE_PATH = os.path.join(BASE_DIR, "saved_model")
+os.makedirs(MODEL_SAVE_PATH, exist_ok=True)
+
+print(f"\nSaving model to {MODEL_SAVE_PATH}...")
+model.save_pretrained(MODEL_SAVE_PATH)
+tokenizer.save_pretrained(MODEL_SAVE_PATH)
+print("✅ Model and tokenizer saved successfully!")
