@@ -46,6 +46,6 @@ public class User {
     protected User() {
     }
 
-    @OneToMany(mappedBy = "User", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Complaint> complaintList;
 }

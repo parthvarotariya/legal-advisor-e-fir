@@ -34,6 +34,9 @@ public class Complaint {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    @Enumerated(EnumType.STRING)
+    private complaint_status status;
+
     public Complaint(){
 
     }
@@ -41,4 +44,8 @@ public class Complaint {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id",nullable = false)
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name="station_id")
+    private PoliceStation policeStation;
 }

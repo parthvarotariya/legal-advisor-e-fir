@@ -6,7 +6,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "police_station")
-public class policeStation {
+public class PoliceStation{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,9 +20,12 @@ public class policeStation {
     private String district;
     private String state;
 
-    @OneToMany(mappedBy = "policeStation")
-    private List<police> policeList;
+    @OneToMany(mappedBy = "policeStation",fetch = FetchType.LAZY)
+    private List<Police> policeList;
 
-//    @OneToMany(mappedBy = "policeStation")
-//    private List<FIR> firList;
+    @OneToMany(mappedBy = "policeStation",fetch = FetchType.LAZY)
+    private List<Fir> firList;
+
+    @OneToMany(mappedBy = "policeStation",fetch = FetchType.LAZY)
+    private List<Complaint> complaintList;
 }
