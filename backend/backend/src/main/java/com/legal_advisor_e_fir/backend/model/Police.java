@@ -1,11 +1,15 @@
 package com.legal_advisor_e_fir.backend.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "police")
-public class police {
+public class Police {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,12 +36,20 @@ public class police {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
+
 //    @Enumerated(EnumType.STRING)
 //    private Status status;
 
     @ManyToOne
     @JoinColumn(name = "station_id", nullable = false)
-    private policeStation policeStation;
+    private PoliceStation policeStation;
 
-    private LocalDateTime createdAt;
+    @OneToMany(mappedBy = "investigatingOfficer")
+    private List<Fir> firs;
 }

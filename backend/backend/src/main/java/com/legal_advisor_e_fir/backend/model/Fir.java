@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @Table(name = "fir")
-public class fir {
+public class Fir {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,11 +52,11 @@ public class fir {
     /* Police Mapping */
     @ManyToOne
     @JoinColumn(name = "station_id", nullable = false)
-    private policeStation policeStation;
+    private PoliceStation policeStation;
 
     @ManyToOne
     @JoinColumn(name = "investigating_officer_id")
-    private police investigatingOfficer;
+    private Police investigatingOfficer;
 
     /* Informant Signature */
     private String informantSignaturePath; // image/pdf path
