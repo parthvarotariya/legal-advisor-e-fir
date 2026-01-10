@@ -1,226 +1,177 @@
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import {
-  Container,
-  Paper,
-  Typography,
-  Button,
-  Box,
-  Grid
-} from '@mui/material';
-import GavelIcon from '@mui/icons-material/Gavel';
-import DescriptionIcon from '@mui/icons-material/Description';
-import TrackChangesIcon from '@mui/icons-material/TrackChanges';
+import './HomePage.css';
 
 const HomePage = () => {
   const navigate = useNavigate();
   const { user, logout, isAuthenticated } = useAuth();
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: '#f5f5f5', pb: 4 }}>
-      {/* Header */}
-      <Paper elevation={2} sx={{ py: 2, px: 4, borderRadius: 0 }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Typography variant="h5" component="h1" fontWeight="bold">
-            Legal Advisor e-FIR System
-          </Typography>
-          <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
-            {isAuthenticated ? (
-              <>
-                <Typography variant="body1" color="text.secondary">
-                  Welcome, <strong>{user?.name}</strong>
-                </Typography>
-                <Button variant="outlined" onClick={logout} color="error">
-                  Logout
-                </Button>
-              </>
-            ) : (
-              <>
-                <Button variant="outlined" onClick={() => navigate('/login')}>
-                  Login
-                </Button>
-                <Button variant="contained" onClick={() => navigate('/register')}>
-                  Register
-                </Button>
-              </>
-            )}
-          </Box>
-        </Box>
-      </Paper>
+    <div className="homepage">
+      {/* Navigation Bar */}
+      <nav className="navbar">
+        <div className="nav-brand">
+          <span className="brand-icon">⚖️</span>
+          <span className="brand-name">Legal Advisor e-FIR</span>
+        </div>
+        <div className="nav-menu">
+          {isAuthenticated ? (
+            <>
+              <span className="user-welcome">Hi, {user?.name}</span>
+              <button onClick={logout} className="btn-logout">Logout</button>
+            </>
+          ) : (
+            <>
+              <button onClick={() => navigate('/login')} className="btn-login">Login</button>
+              <button onClick={() => navigate('/register')} className="btn-register">Sign Up</button>
+            </>
+          )}
+        </div>
+      </nav>
 
-      <Container maxWidth="lg" sx={{ mt: 4 }}>
-        {/* Hero Section */}
-        <Paper 
-          elevation={0} 
-          sx={{ 
-            p: 6, 
-            mb: 5, 
-            textAlign: 'center',
-            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-            color: 'white',
-            borderRadius: 3
-          }}
-        >
-          <GavelIcon sx={{ fontSize: 80, mb: 2, opacity: 0.9 }} />
-          <Typography variant="h3" gutterBottom fontWeight="bold">
-            AI-Assisted Legal Advisor & e-FIR System
-          </Typography>
-          <Typography variant="h6" sx={{ mb: 3, opacity: 0.95 }}>
-            Get legal guidance from our AI assistant and file complaints online
-          </Typography>
-          <Typography variant="body1" sx={{ opacity: 0.9 }}>
-            Compliant with Section 154 of CrPC
-          </Typography>
-        </Paper>
+      {/* Hero Section */}
+      <section className="hero-section">
+        <div className="hero-content">
+          <div className="hero-icon-large">⚖️</div>
+          <h1 className="hero-title">AI-Powered Legal Advisor & e-FIR System</h1>
+          <p className="hero-description">
+            File complaints online, get AI-assisted legal guidance, and track your case status in real-time
+          </p>
+          <div className="hero-badge">
+            <span className="badge-icon">✓</span>
+            <span>Section 154 CrPC Compliant</span>
+          </div>
+        </div>
+      </section>
 
-        {/* Features Grid */}
-        <Typography variant="h4" gutterBottom align="center" sx={{ mb: 4, mt: 2, fontWeight: 'bold' }}>
-          Our Services
-        </Typography>
+      {/* Services Section */}
+      <section className="services-section">
+        <h2 className="section-heading">What We Offer</h2>
+        <p className="section-subheading">Choose a service to get started</p>
         
-        <Grid container spacing={3} sx={{ mb: 5 }}>
-          <Grid item xs={12} sm={6} md={4}>
-            <Paper 
-              elevation={3} 
-              sx={{ 
-                p: 3, 
-                textAlign: 'center', 
-                display: 'flex',
-                flexDirection: 'column',
-                minHeight: '350px',
-                transition: 'transform 0.2s, box-shadow 0.2s',
-                '&:hover': { 
-                  transform: 'translateY(-5px)',
-                  boxShadow: 6
-                }
-              }}
+        <div className="services-grid">
+          {/* Service Card 1 */}
+          <div className="service-card card-purple">
+            <div className="card-header">
+              <div className="service-icon">⚖️</div>
+              <h3 className="service-title">Legal Advice</h3>
+            </div>
+            <p className="service-desc">
+              Get instant AI-powered crime classification and legal guidance for your complaint
+            </p>
+            <button 
+              onClick={() => navigate('/legal-advice')} 
+              className="service-btn"
+              disabled={!isAuthenticated}
             >
-              <GavelIcon sx={{ fontSize: 60, color: 'primary.main', mb: 2 }} />
-              <Typography variant="h6" gutterBottom fontWeight="bold">
-                Get Legal Advice
-              </Typography>
-              <Typography variant="body2" color="text.secondary" sx={{ mb: 3, flexGrow: 1 }}>
-                Submit your complaint details and get automatic crime classification with legal guidance.
-              </Typography>
-              <Button 
-                variant="contained" 
-                size="large"
-                fullWidth
-                onClick={() => navigate('/legal-advice')}
-                disabled={!isAuthenticated}
-              >
-                GET ADVICE
-              </Button>
-              {!isAuthenticated && (
-                <Typography variant="caption" color="error" display="block" sx={{ mt: 1 }}>
-                  Please login to continue
-                </Typography>
-              )}
-            </Paper>
-          </Grid>
+              {isAuthenticated ? 'Get Advice' : 'Login Required'}
+            </button>
+          </div>
 
-          <Grid item xs={12} sm={6} md={4}>
-            <Paper 
-              elevation={3} 
-              sx={{ 
-                p: 3, 
-                textAlign: 'center', 
-                display: 'flex',
-                flexDirection: 'column',
-                minHeight: '350px',
-                transition: 'transform 0.2s, box-shadow 0.2s',
-                '&:hover': { 
-                  transform: 'translateY(-5px)',
-                  boxShadow: 6
-                }
-              }}
+          {/* Service Card 2 */}
+          <div className="service-card card-green">
+            <div className="card-header">
+              <div className="service-icon">📄</div>
+              <h3 className="service-title">File Complaint</h3>
+            </div>
+            <p className="service-desc">
+              Submit your complaint online. Police will review and register FIR if required
+            </p>
+            <button 
+              onClick={() => navigate('/file-complaint')} 
+              className="service-btn"
+              disabled={!isAuthenticated}
             >
-              <DescriptionIcon sx={{ fontSize: 60, color: 'success.main', mb: 2 }} />
-              <Typography variant="h6" gutterBottom fontWeight="bold">
-                File Complaint
-              </Typography>
-              <Typography variant="body2" color="text.secondary" sx={{ mb: 3, flexGrow: 1 }}>
-                Submit your complaint online. Police will review and register FIR if applicable.
-              </Typography>
-              <Button 
-                variant="contained" 
-                size="large"
-                fullWidth
-                color="success"
-                onClick={() => navigate('/file-complaint')}
-                disabled={!isAuthenticated}
-              >
-                FILE COMPLAINT
-              </Button>
-              {!isAuthenticated && (
-                <Typography variant="caption" color="error" display="block" sx={{ mt: 1 }}>
-                  Please login to continue
-                </Typography>
-              )}
-            </Paper>
-          </Grid>
+              {isAuthenticated ? 'File Now' : 'Login Required'}
+            </button>
+          </div>
 
-          <Grid item xs={12} sm={6} md={4}>
-            <Paper 
-              elevation={3} 
-              sx={{ 
-                p: 3, 
-                textAlign: 'center', 
-                display: 'flex',
-                flexDirection: 'column',
-                minHeight: '350px',
-                transition: 'transform 0.2s, box-shadow 0.2s',
-                '&:hover': { 
-                  transform: 'translateY(-5px)',
-                  boxShadow: 6
-                }
-              }}
+          {/* Service Card 3 */}
+          <div className="service-card card-blue">
+            <div className="card-header">
+              <div className="service-icon">🔍</div>
+              <h3 className="service-title">Track Status</h3>
+            </div>
+            <p className="service-desc">
+              Monitor your complaint status and get real-time updates on your case
+            </p>
+            <button 
+              onClick={() => navigate('/track-complaint')} 
+              className="service-btn"
             >
-              <TrackChangesIcon sx={{ fontSize: 60, color: 'info.main', mb: 2 }} />
-              <Typography variant="h6" gutterBottom fontWeight="bold">
-                Track Complaint
-              </Typography>
-              <Typography variant="body2" color="text.secondary" sx={{ mb: 3, flexGrow: 1 }}>
-                Check the status of your complaint using your Complaint ID.
-              </Typography>
-              <Button 
-                variant="contained" 
-                size="large"
-                fullWidth
-                color="info"
-                onClick={() => navigate('/track-complaint')}
-              >
-                TRACK STATUS
-              </Button>
-            </Paper>
-          </Grid>
-        </Grid>
+              Track Now
+            </button>
+          </div>
+        </div>
+      </section>
 
-        {/* Info Section */}
-        <Paper 
-          elevation={2} 
-          sx={{ 
-            p: 4, 
-            bgcolor: '#e3f2fd',
-            borderLeft: '5px solid #2196f3',
-            mb: 4
-          }}
-        >
-          <Typography variant="h5" gutterBottom fontWeight="bold" color="primary">
-            Important Information
-          </Typography>
-          <Typography variant="body1" component="div" sx={{ lineHeight: 2 }}>
-            ✓ This system is compliant with Section 154 of the Criminal Procedure Code (CrPC)
-            <br />
-            ✓ Citizens file complaints, not FIRs - Police officers register the official FIR
-            <br />
-            ✓ AI provides guidance only - final legal authority rests with police
-            <br />
-            ✓ You can track your complaint status at any time
-          </Typography>
-        </Paper>
-      </Container>
-    </Box>
+      {/* Features Section */}
+      <section className="features-section">
+        <div className="features-container">
+          <div className="feature-item">
+            <div className="feature-icon">🤖</div>
+            <div className="feature-content">
+              <h4 className="feature-title">AI-Powered Classification</h4>
+              <p className="feature-text">Automatic crime categorization using advanced machine learning</p>
+            </div>
+          </div>
+          
+          <div className="feature-item">
+            <div className="feature-icon">⚡</div>
+            <div className="feature-content">
+              <h4 className="feature-title">Fast & Secure</h4>
+              <p className="feature-text">Quick complaint filing with end-to-end encryption</p>
+            </div>
+          </div>
+          
+          <div className="feature-item">
+            <div className="feature-icon">📊</div>
+            <div className="feature-content">
+              <h4 className="feature-title">Real-Time Tracking</h4>
+              <p className="feature-text">Monitor your case progress at every step</p>
+            </div>
+          </div>
+          
+          <div className="feature-item">
+            <div className="feature-icon">👮</div>
+            <div className="feature-content">
+              <h4 className="feature-title">Police Integration</h4>
+              <p className="feature-text">Direct connection with law enforcement authorities</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Info Banner */}
+      <section className="info-banner">
+        <div className="info-content">
+          <h3 className="info-heading">Important Guidelines</h3>
+          <div className="info-grid">
+            <div className="info-point">
+              <span className="check-icon">✓</span>
+              <p>System compliant with Section 154 of the Criminal Procedure Code (CrPC)</p>
+            </div>
+            <div className="info-point">
+              <span className="check-icon">✓</span>
+              <p>Citizens file complaints - Police officers register official FIR</p>
+            </div>
+            <div className="info-point">
+              <span className="check-icon">✓</span>
+              <p>AI provides guidance only - Final authority rests with police</p>
+            </div>
+            <div className="info-point">
+              <span className="check-icon">✓</span>
+              <p>Track your complaint status anytime, anywhere</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="footer">
+        <p className="footer-text">© 2026 Legal Advisor e-FIR System. All rights reserved.</p>
+      </footer>
+    </div>
   );
 };
 
