@@ -1,16 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import {
-  Container,
-  Paper,
-  TextField,
-  Button,
-  Typography,
-  Box,
-  Alert,
-  CircularProgress
-} from '@mui/material';
+import './AuthPage.css';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -37,14 +28,13 @@ const LoginPage = () => {
     setError('');
     setLoading(true);
 
-    // Validation
     if (!formData.email || !formData.password) {
       setError('Please fill in all fields');
       setLoading(false);
       return;
     }
 
-    // Temporary hardcoded login for testing (remove when backend is ready)
+    // Temporary hardcoded login for testing
     if (formData.email === 'admin@gmail.com' && formData.password === 'admin@123') {
       localStorage.setItem('authToken', 'test-token-123');
       localStorage.setItem('user', JSON.stringify({ 
@@ -53,7 +43,6 @@ const LoginPage = () => {
         role: 'CITIZEN'
       }));
       setLoading(false);
-      // Force page reload to update AuthContext
       window.location.href = '/';
       return;
     }
@@ -73,70 +62,96 @@ const LoginPage = () => {
   };
 
   return (
-    <Container maxWidth="sm" sx={{ mt: 8 }}>
-      <Paper elevation={3} sx={{ p: 4 }}>
-        <Typography variant="h4" component="h1" gutterBottom align="center">
-          Login
-        </Typography>
-        
-        <Typography variant="body2" color="text.secondary" align="center" sx={{ mb: 3 }}>
-          Access your account to file complaints and track status
-        </Typography>
+    <div className="auth-page">
+      <div className="auth-container">
+        <div className="auth-card">
+          <div className="auth-header">
+            <div className="auth-icon">🔐</div>
+            <h1 className="auth-title">Welcome Back</h1>
+            <p className="auth-subtitle">Access your account to file complaints and track status</p>
+          </div>
 
-        {error && (
-          <Alert severity="error" sx={{ mb: 2 }}>
-            {error}
-          </Alert>
-        )}
+          {error && (
+            <div className="alert alert-error">
+              <span className="alert-icon">⚠️</span>
+              <span>{error}</span>
+            </div>
+          )}
 
-        <Box component="form" onSubmit={handleSubmit}>
-          <TextField
-            fullWidth
-            label="Email"
-            name="email"
-            type="email"
-            value={formData.email}
-            onChange={handleChange}
-            margin="normal"
-            required
-            autoComplete="email"
-            autoFocus
-          />
+          <form className="auth-form" onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label className="form-label">Email Address</label>
+              <input
+                type="email"
+                name="email"
+                className="form-input"
+                placeholder="your@email.com"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                autoFocus
+              />
+            </div>
 
-          <TextField
-            fullWidth
-            label="Password"
-            name="password"
-            type="password"
-            value={formData.password}
-            onChange={handleChange}
-            margin="normal"
-            required
-            autoComplete="current-password"
-          />
+            <div className="form-group">
+              <label className="form-label">Password</label>
+              <input
+                type="password"
+                name="password"
+                className="form-input"
+                placeholder="Enter your password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+            </div>
 
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            size="large"
-            disabled={loading}
-            sx={{ mt: 3, mb: 2 }}
-          >
-            {loading ? <CircularProgress size={24} /> : 'Login'}
-          </Button>
+            <button 
+              type="submit" 
+              className="btn btn-primary btn-large btn-block"
+              disabled={loading}
+            >
+              {loading ? (
+                <span className="spinner"></span>
+              ) : (
+                'Login'
+              )}
+            </button>
 
-          <Box sx={{ textAlign: 'center' }}>
-            <Typography variant="body2">
-              Don't have an account?{' '}
-              <Link to="/register" style={{ textDecoration: 'none', color: '#1976d2' }}>
-                Register here
-              </Link>
-            </Typography>
-          </Box>
-        </Box>
-      </Paper>
-    </Container>
+            <div className="auth-footer">
+              <p className="auth-footer-text">
+                Don't have an account?{' '}
+                <Link to="/register" className="auth-link">Register here</Link>
+              </p>
+            </div>
+          </form>
+        </div>
+
+        <div className="auth-aside">
+          <div className="aside-content">
+            <div className="aside-icon">⚖️</div>
+            <h2 className="aside-title">Legal Advisor e-FIR</h2>
+            <p className="aside-text">
+              Access AI-powered legal guidance and file complaints online with our secure platform
+            </p>
+            <div className="aside-features">
+              <div className="feature-item">
+                <span className="feature-icon">✓</span>
+                <span>AI-Assisted Guidance</span>
+              </div>
+              <div className="feature-item">
+                <span className="feature-icon">✓</span>
+                <span>24/7 Complaint Filing</span>
+              </div>
+              <div className="feature-item">
+                <span className="feature-icon">✓</span>
+                <span>Real-time Tracking</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
