@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test ML API</title>
+</head>
+<body>
+    <h1>Test Crime Classification API</h1>
+    
+    <textarea id="complaint" rows="5" cols="50">Someone stole my phone from my bag at the market</textarea><br><br>
+    
+    <button onclick="classify()">Classify Complaint</button>
+    
+    <div id="result" style="margin-top: 20px; padding: 20px; background: #f0f0f0;"></div>
+    
+    <script>
+        async function classify() {
+            const complaint = document.getElementById('complaint').value;
+            const resultDiv = document.getElementById('result');
+            
+            resultDiv.innerHTML = 'Loading...';
+            
+            try {
+                const response = await fetch('http://localhost:5000/api/classify', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ complaint: complaint })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    resultDiv.innerHTML = `
+                        <h3>✅ Classification Result:</h3>
+                        <p><strong>Category:</strong> ${data.category}</p>
+                        <p><strong>Full Name:</strong> ${data.category_full}</p>
+                        <p><strong>Confidence:</strong> ${data.confidence}%</p>
+                        <p><strong>Label ID:</strong> ${data.label_id}</p>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `<p style="color: red;">Error: ${data.error}</p>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+            }
+        }
+    </script>
+</body>
+</html>
