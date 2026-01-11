@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import java.time.LocalDateTime;
 
@@ -36,7 +37,8 @@ public class Complaint {
     private LocalDateTime updatedAt;
 
     @Enumerated(EnumType.STRING)
-    private complaint_status status;
+    @Column(nullable = false)
+    private complaint_status status = complaint_status.PENDING;
 
     public Complaint(){
 
