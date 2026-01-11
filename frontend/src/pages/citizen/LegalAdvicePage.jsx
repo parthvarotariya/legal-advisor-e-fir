@@ -246,9 +246,6 @@ const LegalAdvicePage = () => {
                 </div>
                 <div className="classification-result">
                   <div className="crime-type">{result.category_full}</div>
-                  <div className="confidence">
-                    Confidence: {result.confidence}%
-                  </div>
                 </div>
               </div>
 
@@ -293,12 +290,6 @@ const LegalAdvicePage = () => {
                           <div className="legal-info-item">
                             <span className="info-label">Type:</span>
                             <span className="info-value">{legalAdviceMap[result.category].legalBasis.offenceType}</span>
-                          </div>
-                          <div className="legal-info-item">
-                            <span className="info-label">AI Confidence:</span>
-                            <span className={`info-value confidence-${legalAdviceMap[result.category].aiConfidence.toLowerCase()}`}>
-                              {legalAdviceMap[result.category].aiConfidence}
-                            </span>
                           </div>
                         </div>
                       </div>
@@ -424,7 +415,12 @@ const LegalAdvicePage = () => {
                 <h4>Next Steps</h4>
                 <div className="steps-actions">
                   <button 
-                    onClick={() => navigate('/file-complaint')}
+                    onClick={() => navigate('/file-complaint', { 
+                      state: { 
+                        complaint: complaint,
+                        aiAnalysis: result 
+                      }
+                    })}
                     className="action-btn primary-action"
                   >
                     <span className="action-icon">📄</span>
