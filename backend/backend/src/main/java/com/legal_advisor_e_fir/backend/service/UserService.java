@@ -29,6 +29,12 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public User getUserById(Long id) {
+        return userRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+    }
+
+    @Override
     public List<UserResponseDto> getAllUsers() {
 
         List<User> users = userRepo.findAll();
@@ -41,7 +47,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public UserResponseDto getUserById(Long id) {
+    public UserResponseDto getUserResponseById(Long id) {
 
         User user = userRepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found with id: " + id));

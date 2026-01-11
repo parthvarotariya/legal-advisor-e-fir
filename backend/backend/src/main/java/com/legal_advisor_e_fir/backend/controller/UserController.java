@@ -5,6 +5,7 @@ import com.legal_advisor_e_fir.backend.dto.UserRequestDto;
 import com.legal_advisor_e_fir.backend.dto.UserResponseDto;
 import com.legal_advisor_e_fir.backend.service.IUserService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class UserController {
 
     private final IUserService userService;
 
-    public UserController(IUserService userService) {
+    public UserController(@Autowired  IUserService userService) {
         this.userService = userService;
     }
 
@@ -33,7 +34,7 @@ public class UserController {
     public ResponseEntity<UserResponseDto> getUserById(
             @PathVariable Long id) {
 
-        UserResponseDto response = userService.getUserById(id);
+        UserResponseDto response = userService.getUserResponseById(id);
         return ResponseEntity.ok(response);
     }
 
