@@ -43,7 +43,15 @@ public class User {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    protected User() {
+    public User() {
+    }
+
+    public User(String password, String email, String mobileNumber, String name, String address) {
+        this.password = password;
+        this.email = email;
+        this.mobileNumber = mobileNumber;
+        this.name = name;
+        this.address = address;
     }
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)

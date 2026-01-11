@@ -21,6 +21,7 @@ public class Complaint {
     @Column(nullable = true)
     private String description;
 
+
     @Column(nullable = true)
     private String actualCategory;
 
