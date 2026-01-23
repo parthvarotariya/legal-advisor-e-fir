@@ -9,8 +9,6 @@ import java.util.List;
 
 public interface IUserService {
 
-    UserResponseDto createUser(UserRequestDto request);
-
     User getUserById(Long id);
     List<UserResponseDto> getAllUsers();
 

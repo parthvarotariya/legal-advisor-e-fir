@@ -25,28 +25,6 @@ public class PoliceService implements IPoliceService {
         this.policeStationRepository = policeStationRepository;
     }
 
-    @Override
-    public PoliceResponseDto registerPolice(PoliceRequestDto request) {
-        
-        // Validate unique constraints
-        if (policeRepository.existsByEmail(request.getEmail())) {
-            throw new RuntimeException("Email already registered: " + request.getEmail());
-        }
-        
-        if (policeRepository.existsByBadgeNumber(request.getBadgeNumber())) {
-            throw new RuntimeException("Badge number already exists: " + request.getBadgeNumber());
-        }
-        
-        // Fetch and validate police station
-        PoliceStation policeStation = policeStationRepository.findById(request.getStationId())
-                .orElseThrow(() -> new RuntimeException("Police station not found with id: " + request.getStationId()));
-        
-        // Create police entity
-        Police police = mapToEntity(request, policeStation);
-        Police savedPolice = policeRepository.save(police);
-        
-        return mapToResponse(savedPolice);
-    }
 
     @Override
     public Police getPoliceById(Long id) {
@@ -167,7 +145,6 @@ public class PoliceService implements IPoliceService {
                 .collect(Collectors.toList());
     }
 
-    // Private helper methods for mapping
     private PoliceResponseDto mapToResponse(Police police) {
         PoliceResponseDto response = new PoliceResponseDto();
         response.setPoliceId(police.getPoliceId());

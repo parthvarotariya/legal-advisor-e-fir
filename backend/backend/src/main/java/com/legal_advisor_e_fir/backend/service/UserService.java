@@ -19,14 +19,6 @@ public class UserService implements IUserService {
         this.userRepo = userRepo;
     }
 
-    @Override
-    public UserResponseDto createUser(UserRequestDto request) {
-
-        User user = mapToEntity(request);
-        User savedUser = userRepo.save(user);
-
-        return mapToResponse(savedUser);
-    }
 
     @Override
     public User getUserById(Long id) {

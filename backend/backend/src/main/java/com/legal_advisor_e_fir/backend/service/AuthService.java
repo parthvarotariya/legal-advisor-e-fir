@@ -1,0 +1,182 @@
+package com.legal_advisor_e_fir.backend.service;
+
+import com.legal_advisor_e_fir.backend.dto.*;
+import com.legal_advisor_e_fir.backend.exceptions.InvalidCredentialsException;
+import com.legal_advisor_e_fir.backend.exceptions.ResourceNotFoundException;
+import com.legal_advisor_e_fir.backend.model.Police;
+import com.legal_advisor_e_fir.backend.model.PoliceStation;
+import com.legal_advisor_e_fir.backend.model.User;
+import com.legal_advisor_e_fir.backend.repository.PoliceRepository;
+import com.legal_advisor_e_fir.backend.repository.PoliceStationRepository;
+import com.legal_advisor_e_fir.backend.repository.UserRepo;
+import org.hibernate.annotations.NaturalId;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+@Service
+public class AuthService implements IAuthService{
+    private final UserRepo userRepo;
+    private final PoliceRepository policeRepo;
+    private final PoliceStationRepository policeStationRepo;
+    private final PasswordEncoder passwordEncoder;
+
+    public AuthService(@Autowired UserRepo userRepo, @Autowired PoliceRepository policeRepo,@Autowired PasswordEncoder passwordEncoder,
+                       @Autowired PoliceStationRepository policeStationRepo)
+    {
+        this.userRepo = userRepo;
+        this.policeRepo = policeRepo;
+        this.passwordEncoder = passwordEncoder;
+        this.policeStationRepo = policeStationRepo;
+    }
+    @Override
+    public UserLoginResponseDto userLogin(LoginRequestDto request) {
+
+        User user;
+        if(!userRepo.existsByEmail(request.getEmail()))
+            throw new ResourceNotFoundException("user not exist with this email");
+        else
+            user = userRepo.findByEmail(request.getEmail());
+
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+            throw new InvalidCredentialsException("Invalid email or password");
+        }
+
+
+        UserResponseDto response = mapToResponse(user);
+        UserLoginResponseDto loginResponse = new UserLoginResponseDto();
+        loginResponse.setUser(response);
+
+        return loginResponse;
+    }
+
+    @Override
+    public UserLoginResponseDto userRegister(UserRequestDto request) {
+
+        if (userRepo.existsByEmail(request.getEmail())) {
+            throw new InvalidCredentialsException("Email already registered");
+        }
+
+        User user = mapToEntity(request);
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        User savedUser = userRepo.save(user);
+        UserResponseDto response = mapToResponse(savedUser);
+
+        UserLoginResponseDto loginResponse = new UserLoginResponseDto();
+        loginResponse.setUser(response);
+
+        return loginResponse;
+    }
+
+
+    @Override
+    public PoliceLoginResponseDto policeLogin(LoginRequestDto request) {
+
+        Police police = policeRepo.findByEmail(request.getEmail())
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Police not found with this email")
+                );
+
+        if (!passwordEncoder.matches(request.getPassword(), police.getPassword())) {
+            throw new InvalidCredentialsException("Invalid email or password");
+        }
+
+        PoliceResponseDto policeResponse = mapToPoliceResponse(police);
+
+        PoliceLoginResponseDto loginResponse = new PoliceLoginResponseDto();
+        loginResponse.setPolice(policeResponse);
+
+        return loginResponse;
+    }
+
+
+
+
+    @Override
+    public PoliceLoginResponseDto policeRegister(PoliceRequestDto request) {
+
+        if (policeRepo.existsByEmail(request.getEmail())) {
+            throw new InvalidCredentialsException(
+                    "Email already registered: " + request.getEmail()
+            );
+        }
+        if (policeRepo.existsByBadgeNumber(request.getBadgeNumber())) {
+            throw new InvalidCredentialsException(
+                    "Badge number already exists: " + request.getBadgeNumber()
+            );
+        }
+        PoliceStation policeStation = policeStationRepo.findById(request.getStationId())
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "Police station not found with id: " + request.getStationId()
+                        )
+                );
+
+
+        Police police = mapToPoliceEntity(request, policeStation);
+        police.setPassword(passwordEncoder.encode(request.getPassword()));
+
+        Police savedPolice = policeRepo.save(police);
+        PoliceResponseDto policeResponse = mapToPoliceResponse(savedPolice);
+
+        PoliceLoginResponseDto loginResponse = new PoliceLoginResponseDto();
+        loginResponse.setPolice(policeResponse);
+
+        return loginResponse;
+    }
+
+
+    private UserResponseDto mapToResponse(User user) {
+
+        UserResponseDto response = new UserResponseDto();
+        response.setId(user.getId());
+        response.setName(user.getName());
+        response.setEmail(user.getEmail());
+        response.setMobileNumber(user.getMobileNumber());
+        response.setAddress(user.getAddress());
+
+       return response;
+    }
+
+    private User mapToEntity(UserRequestDto request) {
+
+        User user = new User();
+        user.setName(request.getName());
+        user.setEmail(request.getEmail());
+        user.setPassword(request.getPassword()); // hashed later
+        user.setMobileNumber(request.getMobileNumber());
+        user.setAddress(request.getAddress());
+
+        return user;
+    }
+
+    private PoliceResponseDto mapToPoliceResponse(Police police) {
+        PoliceResponseDto response = new PoliceResponseDto();
+        response.setPoliceId(police.getPoliceId());
+        response.setName(police.getName());
+        response.setBadgeNumber(police.getBadgeNumber());
+        response.setRank(police.getRank());
+        response.setEmail(police.getEmail());
+        response.setMobileNumber(police.getMobileNumber());
+        response.setRole(police.getRole());
+        response.setStationId(police.getPoliceStation().getStationId());
+        response.setStationName(police.getPoliceStation().getStationName());
+        response.setStationCode(police.getPoliceStation().getStationCode());
+        response.setCreatedAt(police.getCreatedAt());
+        response.setUpdatedAt(police.getUpdatedAt());
+        return response;
+    }
+
+    private Police mapToPoliceEntity(PoliceRequestDto request, PoliceStation policeStation) {
+        Police police = new Police();
+        police.setName(request.getName());
+        police.setBadgeNumber(request.getBadgeNumber());
+        police.setRank(request.getRank());
+        police.setEmail(request.getEmail());
+        police.setMobileNumber(request.getMobileNumber());
+        police.setPassword(request.getPassword()); // Should be hashed in production
+        police.setRole(request.getRole());
+        police.setPoliceStation(policeStation);
+        return police;
+    }
+}

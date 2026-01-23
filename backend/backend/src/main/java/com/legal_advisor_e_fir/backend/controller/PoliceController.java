@@ -23,14 +23,6 @@ public class PoliceController {
         this.policeService = policeService;
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<PoliceResponseDto> register(
-            @Valid @RequestBody PoliceRequestDto request) {
-
-        PoliceResponseDto response = policeService.registerPolice(request);
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<PoliceResponseDto> getPoliceById(
             @PathVariable Long id) {
