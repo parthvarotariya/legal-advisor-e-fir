@@ -1,6 +1,8 @@
 package com.legal_advisor_e_fir.backend.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -9,6 +11,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "police")
+@Getter
+@Setter
 public class Police {
 
     @Id
