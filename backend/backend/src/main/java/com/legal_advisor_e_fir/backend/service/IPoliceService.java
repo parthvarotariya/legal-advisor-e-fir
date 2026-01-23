@@ -10,8 +10,6 @@ import java.util.List;
 
 public interface IPoliceService {
 
-    PoliceResponseDto registerPolice(PoliceRequestDto request);
-
     Police getPoliceById(Long id);
 
     List<PoliceResponseDto> getAllPolice();

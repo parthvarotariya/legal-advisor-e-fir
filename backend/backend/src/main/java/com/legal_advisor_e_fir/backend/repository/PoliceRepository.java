@@ -17,14 +17,11 @@ public interface PoliceRepository extends JpaRepository<Police, Long> {
     
     Optional<Police> findByBadgeNumber(String badgeNumber);
     
-    // Check existence for validation
     boolean existsByEmail(String email);
     
     boolean existsByBadgeNumber(String badgeNumber);
     
-    // Find by police station
     List<Police> findByPoliceStationStationId(Long stationId);
     
-    // Find by role
     List<Police> findByRole(Role role);
 }
