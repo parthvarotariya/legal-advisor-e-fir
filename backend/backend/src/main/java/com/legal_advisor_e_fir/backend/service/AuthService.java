@@ -9,6 +9,8 @@ import com.legal_advisor_e_fir.backend.model.User;
 import com.legal_advisor_e_fir.backend.repository.PoliceRepo;
 import com.legal_advisor_e_fir.backend.repository.PoliceStationRepo;
 import com.legal_advisor_e_fir.backend.repository.UserRepo;
+import io.jsonwebtoken.Jwt;
+import jakarta.transaction.Transactional;
 import org.hibernate.annotations.NaturalId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,17 +22,18 @@ public class AuthService implements IAuthService{
     private final PoliceRepo policeRepo;
     private final PoliceStationRepo policeStationRepo;
     private final PasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
 
-    public AuthService(@Autowired UserRepo userRepo, @Autowired PoliceRepo policeRepo,@Autowired PasswordEncoder passwordEncoder,
-                       @Autowired PoliceStationRepo policeStationRepo)
+    public AuthService(@Autowired UserRepo userRepo, @Autowired PoliceRepo policeRepo, @Autowired PasswordEncoder passwordEncoder,
+                       @Autowired PoliceStationRepo policeStationRepo, @Autowired JwtUtil jwtUtil)
     {
         this.userRepo = userRepo;
         this.policeRepo = policeRepo;
         this.passwordEncoder = passwordEncoder;
         this.policeStationRepo = policeStationRepo;
+        this.jwtUtil = jwtUtil;
     }
     @Override
-    @Transactional(readOnly = true)
     public UserLoginResponseDto userLogin(LoginRequestDto request) {
 
         User user = userRepo.findByEmail(request.getEmail())
@@ -41,8 +44,10 @@ public class AuthService implements IAuthService{
             throw new InvalidCredentialsException("Invalid email or password");
         }
 
+        String token = jwtUtil.generateToken(user.getEmail());
         UserResponseDto response = mapToResponse(user);
         UserLoginResponseDto loginResponse = new UserLoginResponseDto();
+        loginResponse.setToken(token);
         loginResponse.setUser(response);
 
         return loginResponse;
@@ -59,9 +64,12 @@ public class AuthService implements IAuthService{
         User user = mapToEntity(request);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         User savedUser = userRepo.save(user);
-        UserResponseDto response = mapToResponse(savedUser);
 
+        String token = jwtUtil.generateToken(user.getEmail());
+
+        UserResponseDto response = mapToResponse(user);
         UserLoginResponseDto loginResponse = new UserLoginResponseDto();
+        loginResponse.setToken(token);
         loginResponse.setUser(response);
 
         return loginResponse;
@@ -69,7 +77,6 @@ public class AuthService implements IAuthService{
 
 
     @Override
-    @Transactional(readOnly = true)
     public PoliceLoginResponseDto policeLogin(LoginRequestDto request) {
 
         Police police = policeRepo.findByEmail(request.getEmail())
@@ -81,9 +88,11 @@ public class AuthService implements IAuthService{
             throw new InvalidCredentialsException("Invalid email or password");
         }
 
+        String token = jwtUtil.generateToken(request.getEmail());
         PoliceResponseDto policeResponse = mapToPoliceResponse(police);
 
         PoliceLoginResponseDto loginResponse = new PoliceLoginResponseDto();
+        loginResponse.setToken(token);
         loginResponse.setPolice(policeResponse);
 
         return loginResponse;
@@ -118,9 +127,12 @@ public class AuthService implements IAuthService{
         police.setPassword(passwordEncoder.encode(request.getPassword()));
 
         Police savedPolice = policeRepo.save(police);
-        PoliceResponseDto policeResponse = mapToPoliceResponse(savedPolice);
 
+        String token = jwtUtil.generateToken(request.getEmail());
+
+        PoliceResponseDto policeResponse = mapToPoliceResponse(police);
         PoliceLoginResponseDto loginResponse = new PoliceLoginResponseDto();
+        loginResponse.setToken(token);
         loginResponse.setPolice(policeResponse);
 
         return loginResponse;
