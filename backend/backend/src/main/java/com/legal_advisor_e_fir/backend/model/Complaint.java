@@ -51,4 +51,7 @@ public class Complaint {
     @ManyToOne
     @JoinColumn(name="station_id")
     private PoliceStation policeStation;
+
+    @OneToOne(mappedBy = "complaint", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Fir fir;
 }

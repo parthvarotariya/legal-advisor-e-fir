@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface PoliceRepository extends JpaRepository<Police, Long> {
+public interface PoliceRepo extends JpaRepository<Police, Long> {
 
     // Find by unique identifiers
     Optional<Police> findByEmail(String email);
@@ -21,7 +21,7 @@ public interface PoliceRepository extends JpaRepository<Police, Long> {
     
     boolean existsByBadgeNumber(String badgeNumber);
     
-    List<Police> findByPoliceStationStationId(Long stationId);
+    List<Police> findByPoliceStation_StationId(Long stationId);
     
     List<Police> findByRole(Role role);
 }

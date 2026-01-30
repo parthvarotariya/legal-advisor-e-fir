@@ -17,6 +17,6 @@ public interface IComplaintService {
 
     List<ComplaintResponseDto> getByUser(Long id);
 
-    List<ComplaintResponseDto> getByPoliceStation(PoliceStation ps);
+    List<ComplaintResponseDto> getByPoliceStation(Long  stationId);
 
 }

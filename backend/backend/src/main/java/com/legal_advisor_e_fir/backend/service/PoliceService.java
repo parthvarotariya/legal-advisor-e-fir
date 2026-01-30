@@ -3,38 +3,42 @@ package com.legal_advisor_e_fir.backend.service;
 import com.legal_advisor_e_fir.backend.dto.PoliceRequestDto;
 import com.legal_advisor_e_fir.backend.dto.PoliceResponseDto;
 import com.legal_advisor_e_fir.backend.dto.PoliceUpdateRequestDto;
+import com.legal_advisor_e_fir.backend.exceptions.DuplicateResourceException;
+import com.legal_advisor_e_fir.backend.exceptions.ResourceNotFoundException;
 import com.legal_advisor_e_fir.backend.model.Police;
 import com.legal_advisor_e_fir.backend.model.PoliceStation;
 import com.legal_advisor_e_fir.backend.model.Role;
-import com.legal_advisor_e_fir.backend.repository.PoliceRepository;
-import com.legal_advisor_e_fir.backend.repository.PoliceStationRepository;
+import com.legal_advisor_e_fir.backend.repository.PoliceRepo;
+import com.legal_advisor_e_fir.backend.repository.PoliceStationRepo;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class PoliceService implements IPoliceService {
 
-    private final PoliceRepository policeRepository;
-    private final PoliceStationRepository policeStationRepository;
+    private final PoliceRepo policeRepo;
+    private final PoliceStationRepo policeStationRepo;
 
-    public PoliceService(PoliceRepository policeRepository, 
-                        PoliceStationRepository policeStationRepository) {
-        this.policeRepository = policeRepository;
-        this.policeStationRepository = policeStationRepository;
+    public PoliceService(PoliceRepo policeRepo, 
+                        PoliceStationRepo policeStationRepo) {
+        this.policeRepo = policeRepo;
+        this.policeStationRepo = policeStationRepo;
     }
 
 
     @Override
     public Police getPoliceById(Long id) {
-        return policeRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Police not found with id: " + id));
+        return policeRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Police not found with id: " + id));
     }
 
     @Override
     public List<PoliceResponseDto> getAllPolice() {
-        return policeRepository.findAll()
+        return policeRepo.findAll()
                 .stream()
                 .map(this::mapToResponse)
                 .collect(Collectors.toList());
@@ -54,8 +58,8 @@ public class PoliceService implements IPoliceService {
         // Update email if provided and validate uniqueness
         if (request.getEmail() != null && !request.getEmail().isEmpty()) {
             if (!existingPolice.getEmail().equals(request.getEmail()) 
-                    && policeRepository.existsByEmail(request.getEmail())) {
-                throw new RuntimeException("Email already registered: " + request.getEmail());
+                    && policeRepo.existsByEmail(request.getEmail())) {
+                throw new DuplicateResourceException("Email already registered: " + request.getEmail());
             }
             existingPolice.setEmail(request.getEmail());
         }
@@ -63,16 +67,16 @@ public class PoliceService implements IPoliceService {
         // Update badge number if provided and validate uniqueness
         if (request.getBadgeNumber() != null && !request.getBadgeNumber().isEmpty()) {
             if (!existingPolice.getBadgeNumber().equals(request.getBadgeNumber()) 
-                    && policeRepository.existsByBadgeNumber(request.getBadgeNumber())) {
-                throw new RuntimeException("Badge number already exists: " + request.getBadgeNumber());
+                    && policeRepo.existsByBadgeNumber(request.getBadgeNumber())) {
+                throw new DuplicateResourceException("Badge number already exists: " + request.getBadgeNumber());
             }
             existingPolice.setBadgeNumber(request.getBadgeNumber());
         }
         
         // Update police station if provided
         if (request.getStationId() != null && !existingPolice.getPoliceStation().getStationId().equals(request.getStationId())) {
-            PoliceStation policeStation = policeStationRepository.findById(request.getStationId())
-                    .orElseThrow(() -> new RuntimeException("Police station not found with id: " + request.getStationId()));
+            PoliceStation policeStation = policeStationRepo.findById(request.getStationId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Police station not found with id: " + request.getStationId()));
             existingPolice.setPoliceStation(policeStation);
         }
         
@@ -98,40 +102,40 @@ public class PoliceService implements IPoliceService {
             existingPolice.setPassword(request.getPassword()); // Should be hashed in production
         }
         
-        Police updatedPolice = policeRepository.save(existingPolice);
+        Police updatedPolice = policeRepo.save(existingPolice);
         return mapToResponse(updatedPolice);
     }
 
     @Override
     public void deletePoliceById(Long id) {
-        if (!policeRepository.existsById(id)) {
-            throw new RuntimeException("Police not found with id: " + id);
+        if (!policeRepo.existsById(id)) {
+            throw new ResourceNotFoundException("Police not found with id: " + id);
         }
-        policeRepository.deleteById(id);
+        policeRepo.deleteById(id);
     }
 
     @Override
     public PoliceResponseDto getPoliceByEmail(String email) {
-        Police police = policeRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Police not found with email: " + email));
+        Police police = policeRepo.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("Police not found with email: " + email));
         return mapToResponse(police);
     }
 
     @Override
     public PoliceResponseDto getPoliceByBadgeNumber(String badgeNumber) {
-        Police police = policeRepository.findByBadgeNumber(badgeNumber)
-                .orElseThrow(() -> new RuntimeException("Police not found with badge number: " + badgeNumber));
+        Police police = policeRepo.findByBadgeNumber(badgeNumber)
+                .orElseThrow(() -> new ResourceNotFoundException("Police not found with badge number: " + badgeNumber));
         return mapToResponse(police);
     }
 
     @Override
     public List<PoliceResponseDto> getPoliceByStationId(Long stationId) {
         // Validate station exists
-        if (!policeStationRepository.existsById(stationId)) {
-            throw new RuntimeException("Police station not found with id: " + stationId);
+        if (!policeStationRepo.existsById(stationId)) {
+            throw new ResourceNotFoundException("Police station not found with id: " + stationId);
         }
         
-        return policeRepository.findByPoliceStationStationId(stationId)
+        return policeRepo.findByPoliceStation_StationId(stationId)
                 .stream()
                 .map(this::mapToResponse)
                 .collect(Collectors.toList());
@@ -139,7 +143,7 @@ public class PoliceService implements IPoliceService {
 
     @Override
     public List<PoliceResponseDto> getPoliceByRole(Role role) {
-        return policeRepository.findByRole(role)
+        return policeRepo.findByRole(role)
                 .stream()
                 .map(this::mapToResponse)
                 .collect(Collectors.toList());

@@ -11,22 +11,23 @@ import lombok.Setter;
 @Setter
 public class UpdateRequestDto {
 
+        @NotBlank(message = "Name is required")
         @Size(min = 2, max = 50, message = "Name must be between 2 and 50 characters")
         private String name;
 
+        @NotBlank(message = "Mobile number is required")
         @Pattern(
                 regexp = "^[6-9][0-9]{9}$",
                 message = "Mobile number must be a valid 10-digit Indian number"
         )
         private String mobileNumber;
 
+        @NotBlank(message = "Email is required")
         @Email(message = "Invalid email format")
         private String email;
 
-        @Size(min = 8, message = "Password must be at least 8 characters long")
-        private String password;
-
-        @Size(max = 255, message = "Address must not exceed 255 characters")
+        @NotBlank(message = "Address is required")
+        @Size(min = 5, max = 255, message = "Address must be between 5 and 255 characters")
         private String address;
 
 

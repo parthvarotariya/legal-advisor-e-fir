@@ -46,9 +46,10 @@ public class ComplaintController {
     }
 
 
-    @GetMapping("/station/station_name")
-    public  ResponseEntity<List<ComplaintResponseDto>> stationComplaints(@PathVariable String station_name)
+    @GetMapping("/station/{stationId}")
+    public  ResponseEntity<List<ComplaintResponseDto>> stationComplaints(@PathVariable Long stationId)
     {
-        return null;
+        List<ComplaintResponseDto> complaints = complaintService.getByPoliceStation(stationId);
+        return ResponseEntity.ok(complaints);
     }
 }
