@@ -2,21 +2,24 @@ package com.legal_advisor_e_fir.backend.service;
 
 import com.legal_advisor_e_fir.backend.dto.PoliceStationRequestDto;
 import com.legal_advisor_e_fir.backend.dto.PoliceStationResponseDto;
+import com.legal_advisor_e_fir.backend.exceptions.ResourceNotFoundException;
 import com.legal_advisor_e_fir.backend.model.PoliceStation;
-import com.legal_advisor_e_fir.backend.repository.PoliceStationRepository;
+import com.legal_advisor_e_fir.backend.repository.PoliceStationRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class PoliceStationService implements IPoliceStationService {
     
-    private final PoliceStationRepository policeStationRepository;
+    private final PoliceStationRepo policeStationRepo;
     
-    public PoliceStationService(@Autowired PoliceStationRepository policeStationRepository) {
-        this.policeStationRepository = policeStationRepository;
+    public PoliceStationService(@Autowired PoliceStationRepo policeStationRepo) {
+        this.policeStationRepo = policeStationRepo;
     }
     
     @Override
@@ -28,13 +31,13 @@ public class PoliceStationService implements IPoliceStationService {
         policeStation.setDistrict(request.getDistrict());
         policeStation.setState(request.getState());
         
-        PoliceStation savedStation = policeStationRepository.save(policeStation);
+        PoliceStation savedStation = policeStationRepo.save(policeStation);
         return mapToResponseDto(savedStation);
     }
     
     @Override
     public List<PoliceStationResponseDto> getAllPoliceStations() {
-        return policeStationRepository.findAll()
+        return policeStationRepo.findAll()
                 .stream()
                 .map(this::mapToResponseDto)
                 .collect(Collectors.toList());
@@ -42,14 +45,14 @@ public class PoliceStationService implements IPoliceStationService {
     
     @Override
     public PoliceStationResponseDto getByStationCode(String stationCode) {
-        PoliceStation policeStation = policeStationRepository.findByStationCode(stationCode)
-                .orElseThrow(() -> new RuntimeException("Police station not found with code: " + stationCode));
+        PoliceStation policeStation = policeStationRepo.findByStationCode(stationCode)
+                .orElseThrow(() -> new ResourceNotFoundException("Police station not found with code: " + stationCode));
         return mapToResponseDto(policeStation);
     }
     
     @Override
     public List<PoliceStationResponseDto> getByStationName(String stationName) {
-        return policeStationRepository.findByStationName(stationName)
+        return policeStationRepo.findByStationName(stationName)
                 .stream()
                 .map(this::mapToResponseDto)
                 .collect(Collectors.toList());
@@ -57,7 +60,7 @@ public class PoliceStationService implements IPoliceStationService {
     
     @Override
     public List<PoliceStationResponseDto> getByDistrict(String district) {
-        return policeStationRepository.findByDistrict(district)
+        return policeStationRepo.findByDistrict(district)
                 .stream()
                 .map(this::mapToResponseDto)
                 .collect(Collectors.toList());
@@ -65,7 +68,7 @@ public class PoliceStationService implements IPoliceStationService {
     
     @Override
     public List<PoliceStationResponseDto> getByState(String state) {
-        return policeStationRepository.findByState(state)
+        return policeStationRepo.findByState(state)
                 .stream()
                 .map(this::mapToResponseDto)
                 .collect(Collectors.toList());
@@ -73,8 +76,8 @@ public class PoliceStationService implements IPoliceStationService {
     
     @Override
     public PoliceStationResponseDto getById(Long id) {
-        PoliceStation policeStation = policeStationRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Police station not found with id: " + id));
+        PoliceStation policeStation = policeStationRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Police station not found with id: " + id));
         return mapToResponseDto(policeStation);
     }
     

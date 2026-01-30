@@ -11,9 +11,10 @@ import lombok.Setter;
 public class LoginRequestDto {
     @NotBlank(message = "Email is required")
     @Email(message = "Email is not valid")
+    @Size(max = 100, message = "Email cannot exceed 100 characters")
     private String email;
 
     @NotBlank(message = "Password is required")
-    @Size(min = 8, message = "Password must be at least 8 characters long")
+    @Size(min = 8, max = 100, message = "Password must be between 8 and 100 characters")
     private String password;
 }

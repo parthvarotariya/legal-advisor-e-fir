@@ -6,8 +6,8 @@ import com.legal_advisor_e_fir.backend.exceptions.ResourceNotFoundException;
 import com.legal_advisor_e_fir.backend.model.Police;
 import com.legal_advisor_e_fir.backend.model.PoliceStation;
 import com.legal_advisor_e_fir.backend.model.User;
-import com.legal_advisor_e_fir.backend.repository.PoliceRepository;
-import com.legal_advisor_e_fir.backend.repository.PoliceStationRepository;
+import com.legal_advisor_e_fir.backend.repository.PoliceRepo;
+import com.legal_advisor_e_fir.backend.repository.PoliceStationRepo;
 import com.legal_advisor_e_fir.backend.repository.UserRepo;
 import org.hibernate.annotations.NaturalId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +17,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthService implements IAuthService{
     private final UserRepo userRepo;
-    private final PoliceRepository policeRepo;
-    private final PoliceStationRepository policeStationRepo;
+    private final PoliceRepo policeRepo;
+    private final PoliceStationRepo policeStationRepo;
     private final PasswordEncoder passwordEncoder;
 
-    public AuthService(@Autowired UserRepo userRepo, @Autowired PoliceRepository policeRepo,@Autowired PasswordEncoder passwordEncoder,
-                       @Autowired PoliceStationRepository policeStationRepo)
+    public AuthService(@Autowired UserRepo userRepo, @Autowired PoliceRepo policeRepo,@Autowired PasswordEncoder passwordEncoder,
+                       @Autowired PoliceStationRepo policeStationRepo)
     {
         this.userRepo = userRepo;
         this.policeRepo = policeRepo;
@@ -30,18 +30,16 @@ public class AuthService implements IAuthService{
         this.policeStationRepo = policeStationRepo;
     }
     @Override
+    @Transactional(readOnly = true)
     public UserLoginResponseDto userLogin(LoginRequestDto request) {
 
-        User user;
-        if(!userRepo.existsByEmail(request.getEmail()))
-            throw new ResourceNotFoundException("user not exist with this email");
-        else
-            user = userRepo.findByEmail(request.getEmail());
+        User user = userRepo.findByEmail(request.getEmail())
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "User not found with email: " + request.getEmail()));
 
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new InvalidCredentialsException("Invalid email or password");
         }
-
 
         UserResponseDto response = mapToResponse(user);
         UserLoginResponseDto loginResponse = new UserLoginResponseDto();
@@ -51,6 +49,7 @@ public class AuthService implements IAuthService{
     }
 
     @Override
+    @Transactional
     public UserLoginResponseDto userRegister(UserRequestDto request) {
 
         if (userRepo.existsByEmail(request.getEmail())) {
@@ -70,6 +69,7 @@ public class AuthService implements IAuthService{
 
 
     @Override
+    @Transactional(readOnly = true)
     public PoliceLoginResponseDto policeLogin(LoginRequestDto request) {
 
         Police police = policeRepo.findByEmail(request.getEmail())
@@ -93,6 +93,7 @@ public class AuthService implements IAuthService{
 
 
     @Override
+    @Transactional
     public PoliceLoginResponseDto policeRegister(PoliceRequestDto request) {
 
         if (policeRepo.existsByEmail(request.getEmail())) {

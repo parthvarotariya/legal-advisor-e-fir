@@ -27,11 +27,15 @@ public class UserRequestDto {
     private String email;
 
     @NotBlank(message = "Password is required")
-    @Size(min = 8, message = "Password must be at least 8 characters long")
+    @Size(min = 8, max = 100, message = "Password must be between 8 and 100 characters")
+    @Pattern(
+            regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!]).{8,}$",
+            message = "Password must contain at least one digit, one lowercase letter, one uppercase letter, and one special character (@#$%^&+=!)"
+    )
     private String password;
 
     @NotBlank(message = "Address is required")
-    @Size(max = 255, message = "Address must not exceed 255 characters")
+    @Size(min = 10, max = 255, message = "Address must be between 10 and 255 characters")
     private String address;
 
     public UserRequestDto() {
