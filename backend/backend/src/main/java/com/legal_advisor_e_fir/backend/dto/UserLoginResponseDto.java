@@ -7,5 +7,6 @@ import lombok.Setter;
 @Setter
 public class UserLoginResponseDto {
 
+    private String token;
     private UserResponseDto user;
 }

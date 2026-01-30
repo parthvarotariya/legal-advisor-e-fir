@@ -8,5 +8,6 @@ import lombok.Setter;
 @Setter
 public class PoliceLoginResponseDto {
 
+    private String token;
     private PoliceResponseDto police;
 }
