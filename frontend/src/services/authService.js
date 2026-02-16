@@ -11,34 +11,40 @@ export const register = async (userData) => {
       password: userData.password,
       address: userData.address
     };
-    const response = await api.post('/users/register', mappedData);
-    return response.data;
+    const response = await api.post('/auth/user/register', mappedData);
+    
+    const { token, user } = response.data;
+    
+    // Store in localStorage
+    localStorage.setItem('authToken', token);
+    localStorage.setItem('user', JSON.stringify(user));
+    
+    return {
+      token,
+      user
+    };
   } catch (error) {
     throw error.response?.data?.message || 'Registration failed';
   }
 };
 
-// Login user (mock authentication - no backend endpoint available)
+// Login user (citizen)
 export const login = async (credentials) => {
   try {
-    // Since backend has no login endpoint, simulate login
-    // In production, this should call backend API
-    
-    // For now, just create a mock user session
-    const mockUser = {
-      id: 1,
-      name: credentials.email.split('@')[0],
+    const response = await api.post('/auth/user/login', {
       email: credentials.email,
-      mobileNumber: '9999999999'
-    };
+      password: credentials.password
+    });
+    
+    const { token, user } = response.data;
     
     // Store in localStorage
-    localStorage.setItem('authToken', 'mock-token-' + Date.now());
-    localStorage.setItem('user', JSON.stringify(mockUser));
+    localStorage.setItem('authToken', token);
+    localStorage.setItem('user', JSON.stringify(user));
     
     return {
-      token: localStorage.getItem('authToken'),
-      user: mockUser
+      token,
+      user
     };
   } catch (error) {
     throw error.response?.data?.message || 'Login failed';

@@ -180,6 +180,17 @@ public class AuthService implements IAuthService{
         return response;
     }
 
+    @Override
+    public void resetPolicePassword(String email, String newPassword) {
+        Police police = policeRepo.findByEmail(email)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Police not found with this email")
+                );
+        
+        police.setPassword(passwordEncoder.encode(newPassword));
+        policeRepo.save(police);
+    }
+
     private Police mapToPoliceEntity(PoliceRequestDto request, PoliceStation policeStation) {
         Police police = new Police();
         police.setName(request.getName());

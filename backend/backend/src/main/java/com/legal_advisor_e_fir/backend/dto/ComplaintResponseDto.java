@@ -1,6 +1,5 @@
 package com.legal_advisor_e_fir.backend.dto;
 
-import com.legal_advisor_e_fir.backend.model.PoliceStation;
 import com.legal_advisor_e_fir.backend.model.complaint_status;
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
@@ -26,5 +25,10 @@ public class ComplaintResponseDto {
 
     private complaint_status status;
 
-    private PoliceStation policeStation;
+    private Long policeStationId;
+    private String policeStationName;
+    
+    private Long assignedOfficerId;
+    private String assignedOfficerName;
+    private String assignedOfficerBadge;
 }

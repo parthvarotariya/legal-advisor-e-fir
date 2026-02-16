@@ -10,4 +10,5 @@ public interface  IAuthService {
 
     PoliceLoginResponseDto policeLogin(LoginRequestDto request);
     PoliceLoginResponseDto policeRegister(PoliceRequestDto request);
+    void resetPolicePassword(String email, String newPassword);
 }

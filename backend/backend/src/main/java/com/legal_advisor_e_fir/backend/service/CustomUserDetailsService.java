@@ -26,6 +26,15 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email)
             throws UsernameNotFoundException {
 
+        // Check for admin user
+        if ("admin@system".equals(email)) {
+            return new org.springframework.security.core.userdetails.User(
+                    "admin@system",
+                    "", // No password needed as JWT already validated
+                    new ArrayList<>()
+            );
+        }
+
         // Check User table
         Optional<User> user = userRepository.findByEmail(email);
         if (user.isPresent()) {

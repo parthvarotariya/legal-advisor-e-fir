@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import api from '../../services/api';
 
 const FileComplaintPage = () => {
   const navigate = useNavigate();
@@ -21,11 +22,8 @@ const FileComplaintPage = () => {
   useEffect(() => {
     const fetchPoliceStations = async () => {
       try {
-        const response = await fetch('http://localhost:8080/api/police-stations');
-        if (response.ok) {
-          const data = await response.json();
-          setPoliceStations(data);
-        }
+        const response = await api.get('/police-stations');
+        setPoliceStations(response.data);
       } catch (err) {
         console.error('Failed to fetch police stations:', err);
       }

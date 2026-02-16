@@ -1,6 +1,8 @@
 package com.legal_advisor_e_fir.backend.model;
 
 public enum complaint_status {
+    PENDING,
     READ,
-    PENDING
+    UNDER_REVIEW,
+    CLOSED
 }
