@@ -118,6 +118,18 @@ const LoginPage = () => {
               )}
             </button>
 
+            <div className="auth-divider">
+              <span>or</span>
+            </div>
+
+            <button 
+              type="button"
+              className="btn btn-police"
+              onClick={() => navigate('/police/login')}
+            >
+              👮 Police Portal Login
+            </button>
+
             <div className="auth-footer">
               <p className="auth-footer-text">
                 Don't have an account?{' '}

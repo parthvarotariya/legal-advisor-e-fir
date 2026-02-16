@@ -52,4 +52,29 @@ public class ComplaintController {
         List<ComplaintResponseDto> complaints = complaintService.getByPoliceStation(stationId);
         return ResponseEntity.ok(complaints);
     }
+//.
+    @PutMapping("/{id}/status")
+    public ResponseEntity<ComplaintResponseDto> updateComplaint(
+            @PathVariable Long id,
+            @RequestBody java.util.Map<String, Object> request) {
+        
+        String statusStr = (String) request.get("status");
+        String actualCategory = (String) request.get("actualCategory");
+        Object officerIdObj = request.get("officerId");
+        
+        Long officerId = null;
+        if (officerIdObj != null) {
+            if (officerIdObj instanceof Integer) {
+                officerId = ((Integer) officerIdObj).longValue();
+            } else if (officerIdObj instanceof Long) {
+                officerId = (Long) officerIdObj;
+            }
+        }
+        
+        com.legal_advisor_e_fir.backend.model.complaint_status status = 
+            com.legal_advisor_e_fir.backend.model.complaint_status.valueOf(statusStr);
+        
+        ComplaintResponseDto updated = complaintService.updateComplaint(id, status, actualCategory, officerId);
+        return ResponseEntity.ok(updated);
+    }
 }
