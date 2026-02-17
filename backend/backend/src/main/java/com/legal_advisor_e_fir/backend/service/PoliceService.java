@@ -10,6 +10,7 @@ import com.legal_advisor_e_fir.backend.model.PoliceStation;
 import com.legal_advisor_e_fir.backend.model.Role;
 import com.legal_advisor_e_fir.backend.repository.PoliceRepo;
 import com.legal_advisor_e_fir.backend.repository.PoliceStationRepo;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,11 +23,14 @@ public class PoliceService implements IPoliceService {
 
     private final PoliceRepo policeRepo;
     private final PoliceStationRepo policeStationRepo;
+    private final PasswordEncoder passwordEncoder;
 
     public PoliceService(PoliceRepo policeRepo, 
-                        PoliceStationRepo policeStationRepo) {
+                        PoliceStationRepo policeStationRepo,
+                        PasswordEncoder passwordEncoder) {
         this.policeRepo = policeRepo;
         this.policeStationRepo = policeStationRepo;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -99,7 +103,7 @@ public class PoliceService implements IPoliceService {
         
         // Update password if provided
         if (request.getPassword() != null && !request.getPassword().isEmpty()) {
-            existingPolice.setPassword(request.getPassword()); // Should be hashed in production
+            existingPolice.setPassword(passwordEncoder.encode(request.getPassword()));
         }
         
         Police updatedPolice = policeRepo.save(existingPolice);
@@ -173,7 +177,7 @@ public class PoliceService implements IPoliceService {
         police.setRank(request.getRank());
         police.setEmail(request.getEmail());
         police.setMobileNumber(request.getMobileNumber());
-        police.setPassword(request.getPassword()); // Should be hashed in production
+        police.setPassword(passwordEncoder.encode(request.getPassword()));
         police.setRole(request.getRole());
         police.setPoliceStation(policeStation);
         return police;
