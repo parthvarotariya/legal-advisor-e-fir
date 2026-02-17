@@ -198,7 +198,7 @@ public class AuthService implements IAuthService{
         police.setRank(request.getRank());
         police.setEmail(request.getEmail());
         police.setMobileNumber(request.getMobileNumber());
-        police.setPassword(request.getPassword()); // Should be hashed in production
+        // Password is hashed by caller after this mapping
         police.setRole(request.getRole());
         police.setPoliceStation(policeStation);
         return police;
