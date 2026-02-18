@@ -47,8 +47,7 @@ public class Police {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-//    @Enumerated(EnumType.STRING)
-//    private Status status;
+
 
     @ManyToOne
     @JoinColumn(name = "station_id", nullable = false)
@@ -56,4 +55,7 @@ public class Police {
 
     @OneToMany(mappedBy = "investigatingOfficer")
     private List<Fir> firs;
+
+    @OneToMany(mappedBy = "investigatingOfficer")
+    private List<PreliminaryReport> preliminaryReports;
 }

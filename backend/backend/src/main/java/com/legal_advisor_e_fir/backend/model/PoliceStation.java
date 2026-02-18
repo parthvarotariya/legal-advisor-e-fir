@@ -32,4 +32,7 @@ public class PoliceStation{
 
     @OneToMany(mappedBy = "policeStation",fetch = FetchType.LAZY)
     private List<Complaint> complaintList;
+
+    @OneToMany(mappedBy = "station")
+    private List<PreliminaryReport> preliminaryReports;
 }

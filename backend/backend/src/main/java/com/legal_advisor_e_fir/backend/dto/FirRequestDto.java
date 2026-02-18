@@ -40,12 +40,6 @@ public class FirRequestDto {
     @Email(message = "Invalid email format")
     private String informantEmail;
 
-    @Pattern(
-            regexp = "^[0-9]{3,15}$",
-            message = "Fax number must contain only digits and be between 3-15 characters"
-    )
-    private String informantFax;
-
     @NotBlank(message = "Incident location is required")
     @Size(min = 5, max = 200, message = "Incident location must be between 5 and 200 characters")
     private String incidentLocation;

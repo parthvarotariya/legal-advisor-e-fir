@@ -26,11 +26,10 @@ public class Fir {
     private String district;
 
     private String informantName;
-    private String informantGuardianName;   // Father / Husband
+    private String informantGuardianName;
     private String informantAddress;
     private String informantContact;
     private String informantEmail;
-    private String informantFax;
 
     private String incidentLocation;
     private LocalDate incidentDate;
@@ -39,9 +38,9 @@ public class Fir {
     @Column(length = 2000)
     private String incidentDescription;
 
-    private String crimeCategory;           // theft, murder, cyber crime
-    private String ipcSections;             // written by police
-    private String stolenPropertyDetails;   // if applicable
+    private String crimeCategory;
+    private String ipcSections;
+    private String stolenPropertyDetails;
 
     @Column(length = 1000)
     private String accusedDetails;

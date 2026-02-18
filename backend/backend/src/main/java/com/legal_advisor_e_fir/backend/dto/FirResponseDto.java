@@ -22,7 +22,6 @@ public class FirResponseDto {
     private String informantAddress;
     private String informantContact;
     private String informantEmail;
-    private String informantFax;
 
     // Incident Details
     private String incidentLocation;
@@ -87,7 +86,7 @@ public class FirResponseDto {
     public FirResponseDto(Long firId, String firNumber, String district,
                          String informantName, String informantGuardianName,
                          String informantAddress, String informantContact,
-                         String informantEmail, String informantFax,
+                         String informantEmail,
                          String incidentLocation, LocalDate incidentDate,
                          LocalTime incidentTime, String incidentDescription,
                          String crimeCategory, String ipcSections,
@@ -107,7 +106,6 @@ public class FirResponseDto {
         this.informantAddress = informantAddress;
         this.informantContact = informantContact;
         this.informantEmail = informantEmail;
-        this.informantFax = informantFax;
         this.incidentLocation = incidentLocation;
         this.incidentDate = incidentDate;
         this.incidentTime = incidentTime;

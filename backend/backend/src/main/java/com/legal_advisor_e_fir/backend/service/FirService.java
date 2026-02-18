@@ -1,5 +1,6 @@
 package com.legal_advisor_e_fir.backend.service;
 
+import com.legal_advisor_e_fir.backend.dto.FirFromReportRequestDto;
 import com.legal_advisor_e_fir.backend.dto.FirRequestDto;
 import com.legal_advisor_e_fir.backend.dto.FirResponseDto;
 import com.legal_advisor_e_fir.backend.exceptions.DuplicateResourceException;
@@ -8,11 +9,13 @@ import com.legal_advisor_e_fir.backend.model.Complaint;
 import com.legal_advisor_e_fir.backend.model.Fir;
 import com.legal_advisor_e_fir.backend.model.Police;
 import com.legal_advisor_e_fir.backend.model.PoliceStation;
+import com.legal_advisor_e_fir.backend.model.PreliminaryReport;
 import com.legal_advisor_e_fir.backend.model.fir_status;
 import com.legal_advisor_e_fir.backend.repository.ComplaintRepo;
 import com.legal_advisor_e_fir.backend.repository.FirRepo;
 import com.legal_advisor_e_fir.backend.repository.PoliceRepo;
 import com.legal_advisor_e_fir.backend.repository.PoliceStationRepo;
+import com.legal_advisor_e_fir.backend.repository.PreliminaryReportRepo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,15 +32,18 @@ public class FirService implements IFirService {
     private final PoliceStationRepo policeStationRepo;
     private final PoliceRepo policeRepo;
     private final ComplaintRepo complaintRepo;
+    private final PreliminaryReportRepo preliminaryReportRepo;
 
     public FirService(FirRepo firRepo,
                      PoliceStationRepo policeStationRepo,
                      PoliceRepo policeRepo,
-                     ComplaintRepo complaintRepo) {
+                     ComplaintRepo complaintRepo,
+                     PreliminaryReportRepo preliminaryReportRepo) {
         this.firRepo = firRepo;
         this.policeStationRepo = policeStationRepo;
         this.policeRepo = policeRepo;
         this.complaintRepo = complaintRepo;
+        this.preliminaryReportRepo = preliminaryReportRepo;
     }
 
     @Override
@@ -70,6 +76,24 @@ Fir savedFir = firRepo.save(fir);
         return mapToResponse(savedFir);
     }
 
+    @Override
+    public FirResponseDto createFirFromReport(FirFromReportRequestDto request) {
+        if (firRepo.existsByFirNumber(request.getFirNumber())) {
+            throw new DuplicateResourceException("FIR number already exists: " + request.getFirNumber());
+        }
+
+        PreliminaryReport report = preliminaryReportRepo.findById(request.getReportId())
+                .orElseThrow(() -> new ResourceNotFoundException("Preliminary report not found with id: " + request.getReportId()));
+
+        // Check if complaint already has a FIR
+        if (report.getComplaint() != null && firRepo.existsByComplaint_Id(report.getComplaint().getId())) {
+            throw new DuplicateResourceException("Complaint already has a FIR associated with it");
+        }
+
+        Fir fir = mapReportToFir(request, report);
+        Fir savedFir = firRepo.save(fir);
+        return mapToResponse(savedFir);
+    }
 
     @Override
     public FirResponseDto assignInvestigatingOfficer(Long firId, Long policeId) {
@@ -296,6 +320,37 @@ Fir savedFir = firRepo.save(fir);
         firRepo.deleteById(firId);
     }
 
+    // Helper method to map preliminary report to FIR entity
+    private Fir mapReportToFir(FirFromReportRequestDto request, PreliminaryReport report) {
+        Fir fir = new Fir();
+
+        // From request
+        fir.setFirNumber(request.getFirNumber());
+        fir.setIncidentDescription(request.getIncidentDescription());
+        fir.setStatus(request.getStatus());
+        fir.setFirWrittenBy(request.getFirWrittenBy());
+        fir.setInformantSignaturePath(request.getInformantSignaturePath());
+
+        // From report
+        fir.setInformantName(report.getInformantName());
+        fir.setInformantAddress(report.getInformantAddress());
+        fir.setInformantContact(report.getInformantContact());
+        fir.setInformantEmail(report.getInformantEmail());
+        fir.setIncidentLocation(report.getIncidentLocation());
+        fir.setIncidentDate(report.getIncidentDate());
+        fir.setIncidentTime(report.getIncidentTime());
+        fir.setCrimeCategory(report.getCrimeCategory());
+        fir.setIpcSections(report.getIpcSections());
+        fir.setStolenPropertyDetails(report.getStolenPropertyDetails());
+        fir.setAccusedDetails(report.getDraftAccusedDetails());
+        fir.setWitnessDetails(report.getDraftWitnessDetails());
+        fir.setPoliceStation(report.getStation());
+        fir.setInvestigatingOfficer(report.getInvestigatingOfficer());
+        fir.setComplaint(report.getComplaint());
+
+        return fir;
+    }
+
     // Helper method to map entity to response DTO
     private FirResponseDto mapToResponse(Fir fir) {
         FirResponseDto response = new FirResponseDto();
@@ -311,7 +366,6 @@ Fir savedFir = firRepo.save(fir);
         response.setInformantAddress(fir.getInformantAddress());
         response.setInformantContact(fir.getInformantContact());
         response.setInformantEmail(fir.getInformantEmail());
-        response.setInformantFax(fir.getInformantFax());
         
         // Incident details
         response.setIncidentLocation(fir.getIncidentLocation());
@@ -372,7 +426,6 @@ Fir savedFir = firRepo.save(fir);
         fir.setInformantAddress(request.getInformantAddress());
         fir.setInformantContact(request.getInformantContact());
         fir.setInformantEmail(request.getInformantEmail());
-        fir.setInformantFax(request.getInformantFax());
         fir.setIncidentLocation(request.getIncidentLocation());
         fir.setIncidentDate(request.getIncidentDate());
         fir.setIncidentTime(request.getIncidentTime());
