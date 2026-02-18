@@ -58,4 +58,7 @@ public class Complaint {
 
     @OneToOne(mappedBy = "complaint", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Fir fir;
+
+    @OneToOne(mappedBy = "complaint")
+    private PreliminaryReport preliminaryReport;
 }

@@ -1,5 +1,6 @@
 package com.legal_advisor_e_fir.backend.controller;
 
+import com.legal_advisor_e_fir.backend.dto.FirFromReportRequestDto;
 import com.legal_advisor_e_fir.backend.dto.FirRequestDto;
 import com.legal_advisor_e_fir.backend.dto.FirResponseDto;
 import com.legal_advisor_e_fir.backend.model.fir_status;
@@ -30,6 +31,16 @@ public class FirController {
             @Valid @RequestBody FirRequestDto request) {
 
         FirResponseDto response = firService.createFir(request);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(response);
+    }
+
+    @PostMapping("/register-from-report")
+    public ResponseEntity<FirResponseDto> createFirFromReport(
+            @Valid @RequestBody FirFromReportRequestDto request) {
+
+        FirResponseDto response = firService.createFirFromReport(request);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(response);

@@ -1,5 +1,6 @@
 package com.legal_advisor_e_fir.backend.service;
 
+import com.legal_advisor_e_fir.backend.dto.FirFromReportRequestDto;
 import com.legal_advisor_e_fir.backend.dto.FirRequestDto;
 import com.legal_advisor_e_fir.backend.dto.FirResponseDto;
 import com.legal_advisor_e_fir.backend.model.Fir;
@@ -12,6 +13,8 @@ import java.util.List;
 public interface IFirService {
 
     FirResponseDto createFir(FirRequestDto request);
+
+    FirResponseDto createFirFromReport(FirFromReportRequestDto request);
     
 
     FirResponseDto assignInvestigatingOfficer(Long firId, Long policeId);
