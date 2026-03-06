@@ -5,13 +5,13 @@ import com.legal_advisor_e_fir.backend.dto.ComplaintResponseDto;
 import com.legal_advisor_e_fir.backend.dto.UserRequestDto;
 import com.legal_advisor_e_fir.backend.service.IComplaintService;
 import jakarta.validation.Valid;
-import jdk.jfr.Frequency;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/complaints")
@@ -47,9 +47,36 @@ public class ComplaintController {
 
 
     @GetMapping("/station/{stationId}")
-    public  ResponseEntity<List<ComplaintResponseDto>> stationComplaints(@PathVariable Long stationId)
-    {
-        List<ComplaintResponseDto> complaints = complaintService.getByPoliceStation(stationId);
+    public ResponseEntity<?> stationComplaints(@PathVariable Long stationId) {
+        try {
+            List<ComplaintResponseDto> complaints = complaintService.getByPoliceStation(stationId);
+            return ResponseEntity.ok(complaints);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("error", e.getClass().getSimpleName(), 
+                                 "message", e.getMessage() != null ? e.getMessage() : "Unknown error",
+                                 "cause", e.getCause() != null ? e.getCause().getMessage() : "No cause"));
+        }
+    }
+
+    @GetMapping("/officer/{officerId}")
+    public ResponseEntity<List<ComplaintResponseDto>> officerComplaints(@PathVariable Long officerId) {
+        List<ComplaintResponseDto> complaints = complaintService.getByAssignedOfficer(officerId);
+        return ResponseEntity.ok(complaints);
+    }
+
+    @GetMapping("/subdivision/{subdivisionId}")
+    public ResponseEntity<List<ComplaintResponseDto>> subdivisionComplaints(@PathVariable Long subdivisionId) {
+        List<ComplaintResponseDto> complaints = complaintService.getBySubdivision(subdivisionId);
+        return ResponseEntity.ok(complaints);
+    }
+
+    @GetMapping("/subdivision/{subdivisionId}/status/{status}")
+    public ResponseEntity<List<ComplaintResponseDto>> subdivisionComplaintsByStatus(
+            @PathVariable Long subdivisionId,
+            @PathVariable com.legal_advisor_e_fir.backend.model.ComplaintStatus status) {
+        List<ComplaintResponseDto> complaints = complaintService.getBySubdivisionAndStatus(subdivisionId, status);
         return ResponseEntity.ok(complaints);
     }
 //.
@@ -71,8 +98,8 @@ public class ComplaintController {
             }
         }
         
-        com.legal_advisor_e_fir.backend.model.complaint_status status = 
-            com.legal_advisor_e_fir.backend.model.complaint_status.valueOf(statusStr);
+        com.legal_advisor_e_fir.backend.model.ComplaintStatus status = 
+            com.legal_advisor_e_fir.backend.model.ComplaintStatus.valueOf(statusStr);
         
         ComplaintResponseDto updated = complaintService.updateComplaint(id, status, actualCategory, officerId);
         return ResponseEntity.ok(updated);

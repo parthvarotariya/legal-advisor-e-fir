@@ -23,4 +23,6 @@ public interface IPreliminaryReportService {
     List<PreliminaryReportResponseDto> getAllPreliminaryReports();
 
     void deletePreliminaryReport(Long reportId);
+
+    List<PreliminaryReportResponseDto> findBySubdivisionId(Long subdivisionId);
 }

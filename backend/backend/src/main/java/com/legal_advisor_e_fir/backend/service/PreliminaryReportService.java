@@ -117,6 +117,12 @@ public class PreliminaryReportService implements IPreliminaryReportService {
         preliminaryReportRepo.deleteById(reportId);
     }
 
+    @Override
+    public List<PreliminaryReportResponseDto> findBySubdivisionId(Long subdivisionId) {
+        return preliminaryReportRepo.findByStation_Subdivision_SubdivisionId(subdivisionId)
+                .stream().map(this::mapToResponse).toList();
+    }
+
     private PreliminaryReportResponseDto mapToResponse(PreliminaryReport report) {
         PreliminaryReportResponseDto response = new PreliminaryReportResponseDto();
 
@@ -170,6 +176,15 @@ public class PreliminaryReportService implements IPreliminaryReportService {
             response.setStationCode(report.getStation().getStationCode());
         }
 
+        // BNSS 2023 PE Protocol fields
+        response.setPermissionGrantedByDspId(report.getPermissionGrantedByDspId());
+        // TODO: If you want to populate DSP name, you'll need to fetch the Police entity
+        response.setPeCategory(report.getPeCategory());
+        response.setPeStartDate(report.getPeStartDate());
+        response.setPeDeadline(report.getPeDeadline());
+        response.setReasonForRefusal(report.getReasonForRefusal());
+        response.setInformantNotifiedOfRefusal(report.getInformantNotifiedOfRefusal());
+
         return response;
     }
 
@@ -195,6 +210,14 @@ public class PreliminaryReportService implements IPreliminaryReportService {
         report.setComplaint(complaint);
         report.setInvestigatingOfficer(investigatingOfficer);
         report.setStation(station);
+
+        // BNSS 2023 PE Protocol fields
+        report.setPermissionGrantedByDspId(request.getPermissionGrantedByDspId());
+        report.setPeCategory(request.getPeCategory());
+        report.setPeStartDate(request.getPeStartDate());
+        report.setPeDeadline(request.getPeDeadline());
+        report.setReasonForRefusal(request.getReasonForRefusal());
+        report.setInformantNotifiedOfRefusal(request.getInformantNotifiedOfRefusal());
 
         return report;
     }

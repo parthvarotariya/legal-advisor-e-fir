@@ -68,3 +68,13 @@ export const getAllStations = async () => {
     throw error.response?.data?.message || error.message;
   }
 };
+
+// Create a new police station (super admin only)
+export const createPoliceStation = async (stationData) => {
+  try {
+    const response = await api.post('/police-stations/register', stationData);
+    return response.data;
+  } catch (error) {
+    throw error.response?.data?.message || error.message;
+  }
+};

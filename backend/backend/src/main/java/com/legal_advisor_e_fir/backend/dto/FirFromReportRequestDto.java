@@ -1,6 +1,6 @@
 package com.legal_advisor_e_fir.backend.dto;
 
-import com.legal_advisor_e_fir.backend.model.fir_status;
+import com.legal_advisor_e_fir.backend.model.FirStatus;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,19 +19,12 @@ public class FirFromReportRequestDto {
     @NotBlank(message = "District is required")
     private String district;
 
-     // Father / Husband - not in report
-
-    @Pattern(
-            regexp = "^[0-9]{3,15}$",
-            message = "Fax number must contain only digits and be between 3-15 characters"
-    )
-
     @NotBlank(message = "Incident description is required")
     @Size(max = 2000, message = "Description cannot exceed 2000 characters")
     private String incidentDescription;
 
     @NotNull(message = "FIR status is required")
-    private fir_status status;
+    private FirStatus status;
 
     @NotBlank(message = "FIR writer name is required")
     @Size(min = 2, max = 100, message = "FIR writer name must be between 2 and 100 characters")
@@ -39,4 +32,25 @@ public class FirFromReportRequestDto {
 
     @Size(max = 255, message = "Signature path cannot exceed 255 characters")
     private String informantSignaturePath;
+
+    // ==========================================
+    // NEW FIELDS FOR BNSS 2023 COMPLIANCE
+    // ==========================================
+
+    // 1. Jurisdiction & Zero FIR
+    private Boolean isZeroFir = false;
+    private String destinationPoliceStation;
+
+    // 2. Electronic Communication (e-FIR)
+    private Boolean isEfir = false;
+    private Boolean isSignatureObtained;
+
+    // 3. Vulnerable Victim Protection
+    private Boolean isVictimWoman = false;
+    private Boolean recordedByWomanOfficer;
+    
+    private Boolean isDisabledVictim = false;
+    private String interpreterOrEducatorName;
+    private String videoRecordingPath;
+    private Boolean isMagistrateStatementRecorded;
 }

@@ -38,6 +38,7 @@ public class Police {
     private String password;
 
     @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "varchar(50)")
     private Role role;
 
     @CreationTimestamp

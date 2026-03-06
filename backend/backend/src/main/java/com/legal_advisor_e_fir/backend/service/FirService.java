@@ -10,7 +10,7 @@ import com.legal_advisor_e_fir.backend.model.Fir;
 import com.legal_advisor_e_fir.backend.model.Police;
 import com.legal_advisor_e_fir.backend.model.PoliceStation;
 import com.legal_advisor_e_fir.backend.model.PreliminaryReport;
-import com.legal_advisor_e_fir.backend.model.fir_status;
+import com.legal_advisor_e_fir.backend.model.FirStatus;
 import com.legal_advisor_e_fir.backend.repository.ComplaintRepo;
 import com.legal_advisor_e_fir.backend.repository.FirRepo;
 import com.legal_advisor_e_fir.backend.repository.PoliceRepo;
@@ -107,7 +107,7 @@ Fir savedFir = firRepo.save(fir);
     }
 
     @Override
-    public FirResponseDto updateFirStatus(Long firId, fir_status status) {
+    public FirResponseDto updateFirStatus(Long firId, FirStatus status) {
         Fir fir = getFirById(firId);
         fir.setStatus(status);
         Fir updatedFir = firRepo.save(fir);
@@ -163,7 +163,7 @@ Fir savedFir = firRepo.save(fir);
     }
 
     @Override
-    public List<FirResponseDto> getFirsByStationAndStatus(Long stationId, fir_status status) {
+    public List<FirResponseDto> getFirsByStationAndStatus(Long stationId, FirStatus status) {
         if (!policeStationRepo.existsById(stationId)) {
             throw new ResourceNotFoundException("Police station not found with id: " + stationId);
         }
@@ -187,7 +187,7 @@ Fir savedFir = firRepo.save(fir);
     }
 
     @Override
-    public List<FirResponseDto> getFirsByInvestigatingOfficerAndStatus(Long policeId, fir_status status) {
+    public List<FirResponseDto> getFirsByInvestigatingOfficerAndStatus(Long policeId, FirStatus status) {
         if (!policeRepo.existsById(policeId)) {
             throw new ResourceNotFoundException("Police officer not found with id: " + policeId);
         }
@@ -211,7 +211,7 @@ Fir savedFir = firRepo.save(fir);
     }
 
     @Override
-    public List<FirResponseDto> getFirsByStatus(fir_status status) {
+    public List<FirResponseDto> getFirsByStatus(FirStatus status) {
         return firRepo.findByStatus(status)
                 .stream()
                 .map(this::mapToResponse)
@@ -227,7 +227,7 @@ Fir savedFir = firRepo.save(fir);
     }
 
     @Override
-    public List<FirResponseDto> getFirsByDistrictAndStatus(String district, fir_status status) {
+    public List<FirResponseDto> getFirsByDistrictAndStatus(String district, FirStatus status) {
         return firRepo.findByDistrictAndStatus(district, status)
                 .stream()
                 .map(this::mapToResponse)
@@ -298,7 +298,7 @@ Fir savedFir = firRepo.save(fir);
     }
 
     @Override
-    public long countFirsByStatus(fir_status status) {
+    public long countFirsByStatus(FirStatus status) {
         return firRepo.countByStatus(status);
     }
 
@@ -320,12 +320,19 @@ Fir savedFir = firRepo.save(fir);
         firRepo.deleteById(firId);
     }
 
+    @Override
+    public List<FirResponseDto> getFirsBySubdivision(Long subdivisionId) {
+        List<Fir> firs = firRepo.findByPoliceStation_Subdivision_SubdivisionId(subdivisionId);
+        return firs.stream().map(this::mapToResponse).toList();
+    }
+
     // Helper method to map preliminary report to FIR entity
     private Fir mapReportToFir(FirFromReportRequestDto request, PreliminaryReport report) {
         Fir fir = new Fir();
 
         // From request
         fir.setFirNumber(request.getFirNumber());
+        fir.setDistrict(request.getDistrict());
         fir.setIncidentDescription(request.getIncidentDescription());
         fir.setStatus(request.getStatus());
         fir.setFirWrittenBy(request.getFirWrittenBy());
@@ -347,6 +354,18 @@ Fir savedFir = firRepo.save(fir);
         fir.setPoliceStation(report.getStation());
         fir.setInvestigatingOfficer(report.getInvestigatingOfficer());
         fir.setComplaint(report.getComplaint());
+
+        // BNSS 2023 Compliance Fields from request
+        fir.setIsZeroFir(request.getIsZeroFir() != null ? request.getIsZeroFir() : false);
+        fir.setDestinationPoliceStation(request.getDestinationPoliceStation());
+        fir.setIsEfir(request.getIsEfir() != null ? request.getIsEfir() : false);
+        fir.setIsSignatureObtained(request.getIsSignatureObtained());
+        fir.setIsVictimWoman(request.getIsVictimWoman() != null ? request.getIsVictimWoman() : false);
+        fir.setRecordedByWomanOfficer(request.getRecordedByWomanOfficer());
+        fir.setIsDisabledVictim(request.getIsDisabledVictim() != null ? request.getIsDisabledVictim() : false);
+        fir.setInterpreterOrEducatorName(request.getInterpreterOrEducatorName());
+        fir.setVideoRecordingPath(request.getVideoRecordingPath());
+        fir.setIsMagistrateStatementRecorded(request.getIsMagistrateStatementRecorded());
 
         return fir;
     }
@@ -412,6 +431,19 @@ Fir savedFir = firRepo.save(fir);
         response.setInformantSignaturePath(fir.getInformantSignaturePath());
         response.setRegisteredAt(fir.getRegisteredAt());
         
+        // BNSS 2023 Compliance Fields
+        response.setIsZeroFir(fir.getIsZeroFir());
+        response.setDestinationPoliceStation(fir.getDestinationPoliceStation());
+        response.setIsEfir(fir.getIsEfir());
+        response.setSignatureDeadline(fir.getSignatureDeadline());
+        response.setIsSignatureObtained(fir.getIsSignatureObtained());
+        response.setIsVictimWoman(fir.getIsVictimWoman());
+        response.setRecordedByWomanOfficer(fir.getRecordedByWomanOfficer());
+        response.setIsDisabledVictim(fir.getIsDisabledVictim());
+        response.setInterpreterOrEducatorName(fir.getInterpreterOrEducatorName());
+        response.setVideoRecordingPath(fir.getVideoRecordingPath());
+        response.setIsMagistrateStatementRecorded(fir.getIsMagistrateStatementRecorded());
+        
         return response;
     }
 
@@ -441,6 +473,18 @@ Fir savedFir = firRepo.save(fir);
         fir.setComplaint(complaint);
         fir.setFirWrittenBy(request.getFirWrittenBy());
         fir.setInformantSignaturePath(request.getInformantSignaturePath());
+        
+        // BNSS 2023 Compliance Fields
+        fir.setIsZeroFir(request.getIsZeroFir() != null ? request.getIsZeroFir() : false);
+        fir.setDestinationPoliceStation(request.getDestinationPoliceStation());
+        fir.setIsEfir(request.getIsEfir() != null ? request.getIsEfir() : false);
+        fir.setIsSignatureObtained(request.getIsSignatureObtained());
+        fir.setIsVictimWoman(request.getIsVictimWoman() != null ? request.getIsVictimWoman() : false);
+        fir.setRecordedByWomanOfficer(request.getRecordedByWomanOfficer());
+        fir.setIsDisabledVictim(request.getIsDisabledVictim() != null ? request.getIsDisabledVictim() : false);
+        fir.setInterpreterOrEducatorName(request.getInterpreterOrEducatorName());
+        fir.setVideoRecordingPath(request.getVideoRecordingPath());
+        fir.setIsMagistrateStatementRecorded(request.getIsMagistrateStatementRecorded());
         
         return fir;
     }

@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { trackComplaint, getUserComplaints } from '../../services/complaintService';
+import api from '../../services/api';
+import { generateFirPdf } from '../../utils/generateFirPdf';
 import './TrackComplaintPage.css';
 
 const TrackComplaintPage = () => {
@@ -14,6 +16,8 @@ const TrackComplaintPage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [searchMode, setSearchMode] = useState('all'); // 'all' or 'id'
+  const [firData, setFirData] = useState(null);
+  const [firLoading, setFirLoading] = useState(false);
 
   // Load user complaints on mount if authenticated
   useEffect(() => {
@@ -73,6 +77,11 @@ const TrackComplaintPage = () => {
       const data = await trackComplaint(complaintId.trim());
       setSelectedComplaint(data);
       setSearchMode('id');
+      setFirData(null);
+      // Auto-fetch FIR if status is FIR_REGISTERED
+      if (data.status === 'FIR_REGISTERED' && data.id) {
+        fetchFirForComplaint(data.id);
+      }
     } catch (err) {
       setError(err.message || 'Failed to fetch complaint. Please check the ID and try again.');
     } finally {
@@ -99,15 +108,34 @@ const TrackComplaintPage = () => {
   const viewComplaintDetails = (complaint) => {
     setSelectedComplaint(complaint);
     setSearchMode('id');
+    setFirData(null);
+    // Auto-fetch FIR if status is FIR_REGISTERED
+    if (complaint.status === 'FIR_REGISTERED' && complaint.id) {
+      fetchFirForComplaint(complaint.id);
+    }
+  };
+
+  const fetchFirForComplaint = async (complaintId) => {
+    setFirLoading(true);
+    setFirData(null);
+    try {
+      const res = await api.get(`/fir/complaint/${complaintId}`);
+      setFirData(res.data);
+    } catch (err) {
+      console.log('No FIR found for complaint:', complaintId);
+    } finally {
+      setFirLoading(false);
+    }
   };
 
   const getStatusColor = (status) => {
     const statusColors = {
-      PENDING: '#f59e0b',
-      UNDER_INVESTIGATION: '#3b82f6',
-      RESOLVED: '#10b981',
-      REJECTED: '#ef4444',
-      CLOSED: '#6b7280'
+      RECEIVED: '#f59e0b',
+      PE_PENDING_DSP_APPROVAL: '#3b82f6',
+      PE_ASSIGNED: '#8b5cf6',
+      PE_SUBMITTED: '#6366f1',
+      FIR_REGISTERED: '#10b981',
+      CLOSED_NO_CRIME: '#ef4444'
     };
     return statusColors[status] || '#6b7280';
   };
@@ -369,6 +397,119 @@ const TrackComplaintPage = () => {
                     <p className="officer-badge">Badge: {selectedComplaint.assignedOfficer.badgeNumber}</p>
                   </div>
                 </div>
+              </div>
+            )}
+
+            {/* FIR Details Section */}
+            {selectedComplaint.status === 'FIR_REGISTERED' && (
+              <div className="fir-details-section">
+                <h3>📄 FIR Details</h3>
+                {firLoading && (
+                  <div className="loading-state" style={{ padding: '20px 0' }}>
+                    <div className="spinner"></div>
+                    <p>Loading FIR details...</p>
+                  </div>
+                )}
+                {!firLoading && !firData && (
+                  <div className="info-box" style={{ background: '#fef3cd', border: '1px solid #ffc107', borderRadius: 8, padding: 16, marginTop: 8 }}>
+                    <p>FIR has been registered for this complaint. Details are being processed.</p>
+                    <button
+                      onClick={() => fetchFirForComplaint(selectedComplaint.id)}
+                      style={{ marginTop: 8, padding: '6px 16px', background: '#3b82f6', color: '#fff', border: 'none', borderRadius: 6, cursor: 'pointer' }}
+                    >
+                      🔄 Retry Loading FIR
+                    </button>
+                  </div>
+                )}
+                {!firLoading && firData && (
+                  <div className="fir-info-grid">
+                    <div className="fir-info-card" style={{ background: '#eff6ff', border: '1px solid #bfdbfe', borderRadius: 8, padding: 16, marginTop: 8 }}>
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                        <div>
+                          <label style={{ fontSize: '0.75rem', color: '#6b7280', fontWeight: 600, textTransform: 'uppercase' }}>FIR Number</label>
+                          <p style={{ margin: '2px 0 0', fontWeight: 700, fontSize: '1.05rem', color: '#1e40af' }}>{firData.firNumber}</p>
+                        </div>
+                        <div>
+                          <label style={{ fontSize: '0.75rem', color: '#6b7280', fontWeight: 600, textTransform: 'uppercase' }}>Status</label>
+                          <p style={{ margin: '2px 0 0' }}>
+                            <span style={{ background: '#10b981', color: '#fff', padding: '2px 10px', borderRadius: 12, fontSize: '0.85rem' }}>{firData.status}</span>
+                          </p>
+                        </div>
+                        <div>
+                          <label style={{ fontSize: '0.75rem', color: '#6b7280', fontWeight: 600, textTransform: 'uppercase' }}>District</label>
+                          <p style={{ margin: '2px 0 0' }}>{firData.district || 'N/A'}</p>
+                        </div>
+                        <div>
+                          <label style={{ fontSize: '0.75rem', color: '#6b7280', fontWeight: 600, textTransform: 'uppercase' }}>Registered On</label>
+                          <p style={{ margin: '2px 0 0' }}>{formatDate(firData.registeredAt)}</p>
+                        </div>
+                        <div>
+                          <label style={{ fontSize: '0.75rem', color: '#6b7280', fontWeight: 600, textTransform: 'uppercase' }}>Crime Category</label>
+                          <p style={{ margin: '2px 0 0' }}>{firData.crimeCategory || 'N/A'}</p>
+                        </div>
+                        <div>
+                          <label style={{ fontSize: '0.75rem', color: '#6b7280', fontWeight: 600, textTransform: 'uppercase' }}>IPC / BNS Sections</label>
+                          <p style={{ margin: '2px 0 0' }}>{firData.ipcSections || 'N/A'}</p>
+                        </div>
+                        <div>
+                          <label style={{ fontSize: '0.75rem', color: '#6b7280', fontWeight: 600, textTransform: 'uppercase' }}>Police Station</label>
+                          <p style={{ margin: '2px 0 0' }}>{firData.policeStationName || 'N/A'}</p>
+                        </div>
+                        <div>
+                          <label style={{ fontSize: '0.75rem', color: '#6b7280', fontWeight: 600, textTransform: 'uppercase' }}>Investigating Officer</label>
+                          <p style={{ margin: '2px 0 0' }}>{firData.investigatingOfficerName || 'Not Assigned Yet'}</p>
+                        </div>
+                        <div>
+                          <label style={{ fontSize: '0.75rem', color: '#6b7280', fontWeight: 600, textTransform: 'uppercase' }}>FIR Written By</label>
+                          <p style={{ margin: '2px 0 0' }}>{firData.firWrittenBy || 'N/A'}</p>
+                        </div>
+                        <div>
+                          <label style={{ fontSize: '0.75rem', color: '#6b7280', fontWeight: 600, textTransform: 'uppercase' }}>Incident Location</label>
+                          <p style={{ margin: '2px 0 0' }}>{firData.incidentLocation || 'N/A'}</p>
+                        </div>
+                        <div>
+                          <label style={{ fontSize: '0.75rem', color: '#6b7280', fontWeight: 600, textTransform: 'uppercase' }}>Incident Date</label>
+                          <p style={{ margin: '2px 0 0' }}>{firData.incidentDate || 'N/A'}</p>
+                        </div>
+                        <div>
+                          <label style={{ fontSize: '0.75rem', color: '#6b7280', fontWeight: 600, textTransform: 'uppercase' }}>Incident Time</label>
+                          <p style={{ margin: '2px 0 0' }}>{firData.incidentTime || 'N/A'}</p>
+                        </div>
+                      </div>
+                      {firData.incidentDescription && (
+                        <div style={{ marginTop: 16 }}>
+                          <label style={{ fontSize: '0.75rem', color: '#6b7280', fontWeight: 600, textTransform: 'uppercase' }}>Incident Description</label>
+                          <div style={{ marginTop: 4, background: '#fff', padding: 12, borderRadius: 6, border: '1px solid #e5e7eb', lineHeight: 1.6, fontSize: '0.95rem' }}>
+                            {firData.incidentDescription}
+                          </div>
+                        </div>
+                      )}
+                      {firData.isEfir && (
+                        <div style={{ marginTop: 12, background: '#f5f3ff', padding: '8px 12px', borderRadius: 6, fontSize: '0.85rem', color: '#6d28d9' }}>
+                          📜 This is an e-FIR filed electronically under BNSS 2023
+                        </div>
+                      )}
+                      <div style={{ marginTop: 16, textAlign: 'center' }}>
+                        <button
+                          onClick={() => generateFirPdf(firData)}
+                          style={{
+                            padding: '10px 24px',
+                            background: 'linear-gradient(135deg, #3b82f6, #1d4ed8)',
+                            color: '#fff',
+                            border: 'none',
+                            borderRadius: 8,
+                            cursor: 'pointer',
+                            fontWeight: 600,
+                            fontSize: '0.95rem',
+                            boxShadow: '0 2px 8px rgba(59,130,246,0.3)',
+                          }}
+                        >
+                          📄 Download FIR PDF
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
 

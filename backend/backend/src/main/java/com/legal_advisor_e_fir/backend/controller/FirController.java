@@ -3,7 +3,7 @@ package com.legal_advisor_e_fir.backend.controller;
 import com.legal_advisor_e_fir.backend.dto.FirFromReportRequestDto;
 import com.legal_advisor_e_fir.backend.dto.FirRequestDto;
 import com.legal_advisor_e_fir.backend.dto.FirResponseDto;
-import com.legal_advisor_e_fir.backend.model.fir_status;
+import com.legal_advisor_e_fir.backend.model.FirStatus;
 import com.legal_advisor_e_fir.backend.service.IFirService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,7 +81,7 @@ public class FirController {
     @PutMapping("/{id}/status")
     public ResponseEntity<FirResponseDto> updateFirStatus(
             @PathVariable Long id,
-            @RequestParam fir_status status) {
+            @RequestParam FirStatus status) {
 
         FirResponseDto response = firService.updateFirStatus(id, status);
         return ResponseEntity.ok(response);
@@ -107,7 +107,7 @@ public class FirController {
     @GetMapping("/station/{stationId}/status/{status}")
     public ResponseEntity<List<FirResponseDto>> getFirsByStationAndStatus(
             @PathVariable Long stationId,
-            @PathVariable fir_status status) {
+            @PathVariable FirStatus status) {
 
         List<FirResponseDto> firs = firService.getFirsByStationAndStatus(stationId, status);
         return ResponseEntity.ok(firs);
@@ -132,7 +132,7 @@ public class FirController {
     @GetMapping("/officer/{policeId}/status/{status}")
     public ResponseEntity<List<FirResponseDto>> getFirsByOfficerAndStatus(
             @PathVariable Long policeId,
-            @PathVariable fir_status status) {
+            @PathVariable FirStatus status) {
 
         List<FirResponseDto> firs = firService.getFirsByInvestigatingOfficerAndStatus(policeId, status);
         return ResponseEntity.ok(firs);
@@ -140,7 +140,7 @@ public class FirController {
 
     @GetMapping("/status/{status}")
     public ResponseEntity<List<FirResponseDto>> getFirsByStatus(
-            @PathVariable fir_status status) {
+            @PathVariable FirStatus status) {
 
         List<FirResponseDto> firs = firService.getFirsByStatus(status);
         return ResponseEntity.ok(firs);
@@ -157,7 +157,7 @@ public class FirController {
     @GetMapping("/district/{district}/status/{status}")
     public ResponseEntity<List<FirResponseDto>> getFirsByDistrictAndStatus(
             @PathVariable String district,
-            @PathVariable fir_status status) {
+            @PathVariable FirStatus status) {
 
         List<FirResponseDto> firs = firService.getFirsByDistrictAndStatus(district, status);
         return ResponseEntity.ok(firs);
@@ -231,7 +231,7 @@ public class FirController {
 
     @GetMapping("/count/status/{status}")
     public ResponseEntity<Long> countFirsByStatus(
-            @PathVariable fir_status status) {
+            @PathVariable FirStatus status) {
 
         long count = firService.countFirsByStatus(status);
         return ResponseEntity.ok(count);
@@ -259,5 +259,11 @@ public class FirController {
 
         firService.deleteFir(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/subdivision/{subdivisionId}")
+    public ResponseEntity<List<FirResponseDto>> getFirsBySubdivision(@PathVariable Long subdivisionId) {
+        List<FirResponseDto> firs = firService.getFirsBySubdivision(subdivisionId);
+        return ResponseEntity.ok(firs);
     }
 }

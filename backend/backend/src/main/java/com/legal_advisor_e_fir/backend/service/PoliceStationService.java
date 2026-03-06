@@ -4,7 +4,9 @@ import com.legal_advisor_e_fir.backend.dto.PoliceStationRequestDto;
 import com.legal_advisor_e_fir.backend.dto.PoliceStationResponseDto;
 import com.legal_advisor_e_fir.backend.exceptions.ResourceNotFoundException;
 import com.legal_advisor_e_fir.backend.model.PoliceStation;
+import com.legal_advisor_e_fir.backend.model.Subdivision;
 import com.legal_advisor_e_fir.backend.repository.PoliceStationRepo;
+import com.legal_advisor_e_fir.backend.repository.SubdivisionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,9 +19,14 @@ import java.util.stream.Collectors;
 public class PoliceStationService implements IPoliceStationService {
     
     private final PoliceStationRepo policeStationRepo;
+    private final SubdivisionRepository subdivisionRepository;
     
-    public PoliceStationService(@Autowired PoliceStationRepo policeStationRepo) {
+    public PoliceStationService(
+            @Autowired PoliceStationRepo policeStationRepo,
+            @Autowired SubdivisionRepository subdivisionRepository
+    ) {
         this.policeStationRepo = policeStationRepo;
+        this.subdivisionRepository = subdivisionRepository;
     }
     
     @Override
@@ -30,6 +37,14 @@ public class PoliceStationService implements IPoliceStationService {
         policeStation.setAddress(request.getAddress());
         policeStation.setDistrict(request.getDistrict());
         policeStation.setState(request.getState());
+        
+        // Handle subdivision assignment if provided
+        if (request.getSubdivisionId() != null) {
+            Subdivision subdivision = subdivisionRepository.findById(request.getSubdivisionId())
+                    .orElseThrow(() -> new ResourceNotFoundException(
+                            "Subdivision not found with ID: " + request.getSubdivisionId()));
+            policeStation.setSubdivision(subdivision);
+        }
         
         PoliceStation savedStation = policeStationRepo.save(policeStation);
         return mapToResponseDto(savedStation);
@@ -89,6 +104,13 @@ public class PoliceStationService implements IPoliceStationService {
         dto.setAddress(policeStation.getAddress());
         dto.setDistrict(policeStation.getDistrict());
         dto.setState(policeStation.getState());
+        
+        // Include subdivision information if assigned
+        if (policeStation.getSubdivision() != null) {
+            dto.setSubdivisionId(policeStation.getSubdivision().getSubdivisionId());
+            dto.setSubdivisionName(policeStation.getSubdivision().getSubdivisionName());
+        }
+        
         return dto;
     }
 }

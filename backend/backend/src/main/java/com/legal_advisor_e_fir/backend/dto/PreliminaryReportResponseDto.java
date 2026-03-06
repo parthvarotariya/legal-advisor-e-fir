@@ -54,6 +54,23 @@ public class PreliminaryReportResponseDto {
     private String stationName;
     private String stationCode;
 
+    // ==========================================
+    // NEW FIELDS FOR BNSS 2023 PE PROTOCOL
+    // ==========================================
+
+    // 1. Authorization
+    private Long permissionGrantedByDspId;
+    private String permissionGrantedByDspName; // For display purposes
+    private String peCategory;
+
+    // 2. Timeline Tracking (Mandatory 14 days)
+    private LocalDate peStartDate;
+    private LocalDate peDeadline;
+
+    // 3. Closure
+    private String reasonForRefusal;
+    private Boolean informantNotifiedOfRefusal;
+
     // Default constructor
     public PreliminaryReportResponseDto() {
     }
@@ -73,5 +90,56 @@ public class PreliminaryReportResponseDto {
         this.crimeCategory = crimeCategory;
         this.investigatingOfficerName = investigatingOfficerName;
         this.stationName = stationName;
+    }
+
+    // Full constructor with all fields including BNSS 2023 PE Protocol
+    public PreliminaryReportResponseDto(Long reportId, LocalDateTime submittedAt,
+                                        String investigationNarrative, Boolean cognizableOffence,
+                                        String informantName, String informantAddress,
+                                        String informantContact, String informantEmail,
+                                        String incidentLocation, LocalDate incidentDate, LocalTime incidentTime,
+                                        String crimeCategory, String ipcSections, String stolenPropertyDetails,
+                                        String draftAccusedDetails, String draftWitnessDetails, String witnessStatement,
+                                        Long complaintId, String complaintDescription,
+                                        Long investigatingOfficerId, String investigatingOfficerName,
+                                        String investigatingOfficerBadgeNumber, String investigatingOfficerRank,
+                                        Long stationId, String stationName, String stationCode,
+                                        Long permissionGrantedByDspId, String permissionGrantedByDspName,
+                                        String peCategory, LocalDate peStartDate, LocalDate peDeadline,
+                                        String reasonForRefusal, Boolean informantNotifiedOfRefusal) {
+        this.reportId = reportId;
+        this.submittedAt = submittedAt;
+        this.investigationNarrative = investigationNarrative;
+        this.cognizableOffence = cognizableOffence;
+        this.informantName = informantName;
+        this.informantAddress = informantAddress;
+        this.informantContact = informantContact;
+        this.informantEmail = informantEmail;
+        this.incidentLocation = incidentLocation;
+        this.incidentDate = incidentDate;
+        this.incidentTime = incidentTime;
+        this.crimeCategory = crimeCategory;
+        this.ipcSections = ipcSections;
+        this.stolenPropertyDetails = stolenPropertyDetails;
+        this.draftAccusedDetails = draftAccusedDetails;
+        this.draftWitnessDetails = draftWitnessDetails;
+        this.witnessStatement = witnessStatement;
+        this.complaintId = complaintId;
+        this.complaintDescription = complaintDescription;
+        this.investigatingOfficerId = investigatingOfficerId;
+        this.investigatingOfficerName = investigatingOfficerName;
+        this.investigatingOfficerBadgeNumber = investigatingOfficerBadgeNumber;
+        this.investigatingOfficerRank = investigatingOfficerRank;
+        this.stationId = stationId;
+        this.stationName = stationName;
+        this.stationCode = stationCode;
+        // BNSS 2023 PE Protocol fields
+        this.permissionGrantedByDspId = permissionGrantedByDspId;
+        this.permissionGrantedByDspName = permissionGrantedByDspName;
+        this.peCategory = peCategory;
+        this.peStartDate = peStartDate;
+        this.peDeadline = peDeadline;
+        this.reasonForRefusal = reasonForRefusal;
+        this.informantNotifiedOfRefusal = informantNotifiedOfRefusal;
     }
 }

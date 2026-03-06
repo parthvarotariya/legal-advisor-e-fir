@@ -62,12 +62,42 @@ public class ComplaintService implements IComplaintService {
 
     @Override
     public List<ComplaintResponseDto> getByPoliceStation(Long id) {
-
         PoliceStation ps = policeStationRepo.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("PoliceStation not found with id " + id));
+        
         List<ComplaintResponseDto> complaints = new ArrayList<>();
         List<Complaint> comps = complaintRepo.findAllByPoliceStation(ps);
 
+        for (Complaint comp : comps) {
+            complaints.add(mapToResponse(comp));
+        }
+        return complaints;
+    }
+
+    @Override
+    public List<ComplaintResponseDto> getByAssignedOfficer(Long officerId) {
+        List<ComplaintResponseDto> complaints = new ArrayList<>();
+        List<Complaint> comps = complaintRepo.findAllByAssignedOfficer_PoliceId(officerId);
+        for (Complaint comp : comps) {
+            complaints.add(mapToResponse(comp));
+        }
+        return complaints;
+    }
+
+    @Override
+    public List<ComplaintResponseDto> getBySubdivision(Long subdivisionId) {
+        List<ComplaintResponseDto> complaints = new ArrayList<>();
+        List<Complaint> comps = complaintRepo.findAllByPoliceStation_Subdivision_SubdivisionId(subdivisionId);
+        for (Complaint comp : comps) {
+            complaints.add(mapToResponse(comp));
+        }
+        return complaints;
+    }
+
+    @Override
+    public List<ComplaintResponseDto> getBySubdivisionAndStatus(Long subdivisionId, ComplaintStatus status) {
+        List<ComplaintResponseDto> complaints = new ArrayList<>();
+        List<Complaint> comps = complaintRepo.findAllByPoliceStation_Subdivision_SubdivisionIdAndStatus(subdivisionId, status);
         for (Complaint comp : comps) {
             complaints.add(mapToResponse(comp));
         }
@@ -89,7 +119,7 @@ public class ComplaintService implements IComplaintService {
         c.setDescription(request.getDescription());
         c.setUser(user);
         c.setPoliceStation(policeStation);
-        c.setStatus(complaint_status.PENDING);
+        c.setStatus(ComplaintStatus.RECEIVED);
         c.setPredictedCategory(request.getPredictedCategory());
 
         return c;
@@ -114,12 +144,21 @@ public class ComplaintService implements IComplaintService {
             response.setAssignedOfficerName(c.getAssignedOfficer().getName());
             response.setAssignedOfficerBadge(c.getAssignedOfficer().getBadgeNumber());
         }
+        
+        // Map complainant/user details
+        if (c.getUser() != null) {
+            response.setUserId(c.getUser().getId());
+            response.setComplainantName(c.getUser().getName());
+            response.setComplainantMobile(c.getUser().getMobileNumber());
+            response.setComplainantEmail(c.getUser().getEmail());
+            response.setComplainantAddress(c.getUser().getAddress());
+        }
 
         return response;
     }
 
     @Override
-    public ComplaintResponseDto updateComplaint(Long id, complaint_status status, String actualCategory, Long officerId) {
+    public ComplaintResponseDto updateComplaint(Long id, ComplaintStatus status, String actualCategory, Long officerId) {
         Complaint complaint = complaintRepo.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Complaint not found"));
 

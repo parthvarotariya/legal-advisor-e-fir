@@ -1,6 +1,6 @@
 package com.legal_advisor_e_fir.backend.dto;
 
-import com.legal_advisor_e_fir.backend.model.complaint_status;
+import com.legal_advisor_e_fir.backend.model.ComplaintStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -23,7 +23,7 @@ public class ComplaintResponseDto {
 
     private LocalDateTime createdAt;
 
-    private complaint_status status;
+    private ComplaintStatus status;
 
     private Long policeStationId;
     private String policeStationName;
@@ -31,4 +31,11 @@ public class ComplaintResponseDto {
     private Long assignedOfficerId;
     private String assignedOfficerName;
     private String assignedOfficerBadge;
+    
+    // Complainant details
+    private Long userId;
+    private String complainantName;
+    private String complainantMobile;
+    private String complainantEmail;
+    private String complainantAddress;
 }

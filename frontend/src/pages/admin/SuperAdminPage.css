@@ -335,6 +335,25 @@
   font-weight: 500;
 }
 
+.see-more-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-top: 0.5rem;
+  width: 100%;
+}
+
+.see-more-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
 .no-officers {
   background: #f5f5f5;
   color: #999;
@@ -397,6 +416,402 @@
 .role-badge.investigating_officer {
   background: #e1f5fe;
   color: #0277bd;
+}
+
+.role-badge.deputy_suprintendent {
+  background: #f3e5f5;
+  color: #6a1b9a;
+}
+
+.subdivision-badge {
+  background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+  border: 1px solid #667eea;
+  color: #667eea;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: inline-block;
+}
+
+/* Manage Stations Section */
+.manage-stations-section {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.manage-stations-section h2 {
+  color: #667eea;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+}
+
+.create-station-form {
+  background: #f8f9ff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border: 2px solid #e0e7ff;
+}
+
+.create-station-form h3 {
+  color: #764ba2;
+  margin-bottom: 1.5rem;
+  font-size: 1.3rem;
+}
+
+.station-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.station-form textarea {
+  font-family: inherit;
+  resize: vertical;
+  padding: 0.75rem;
+  border: 2px solid #e0e7ff;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.station-form textarea:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.station-form small {
+  color: #666;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+.stations-list {
+  margin-top: 2rem;
+}
+
+.stations-list h3 {
+  color: #764ba2;
+  margin-bottom: 1.5rem;
+  font-size: 1.3rem;
+}
+
+.stations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.station-card {
+  background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+  border: 2px solid #e0e7ff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.station-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.2);
+  border-color: #667eea;
+}
+
+.station-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.station-code {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.station-id {
+  color: #666;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.station-card h4 {
+  color: #333;
+  margin-bottom: 0.75rem;
+  font-size: 1.2rem;
+}
+
+.station-address {
+  color: #555;
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+}
+
+.station-location {
+  color: #667eea;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* Manage Subdivisions Section */
+.manage-subdivisions-section {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.manage-subdivisions-section h2 {
+  color: #667eea;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+}
+
+.create-subdivision-form {
+  background: #f8f9ff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border: 2px solid #e0e7ff;
+}
+
+.create-subdivision-form h3 {
+  color: #764ba2;
+  margin-bottom: 1.5rem;
+  font-size: 1.3rem;
+}
+
+.subdivision-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.subdivisions-list {
+  margin-top: 2rem;
+}
+
+.subdivisions-list h3 {
+  color: #764ba2;
+  margin-bottom: 1.5rem;
+  font-size: 1.3rem;
+}
+
+.subdivisions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+
+.subdivision-card {
+  background: linear-gradient(135deg, #667eea10 0%, #764ba210 100%);
+  border: 2px solid #e0e7ff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.3s;
+}
+
+.subdivision-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.2);
+  border-color: #667eea;
+}
+
+.subdivision-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.subdivision-code {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.subdivision-id {
+  color: #666;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.subdivision-card h4 {
+  color: #333;
+  margin-bottom: 0.75rem;
+  font-size: 1.2rem;
+}
+
+.subdivision-location {
+  color: #667eea;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.subdivision-dsp {
+  background: rgba(102, 126, 234, 0.05);
+  border-left: 3px solid #667eea;
+  padding: 0.75rem;
+  margin: 1rem 0;
+  border-radius: 4px;
+}
+
+.subdivision-dsp strong {
+  display: block;
+  color: #764ba2;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.dsp-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.dsp-info span {
+  color: #333;
+  font-size: 0.95rem;
+}
+
+.badge-small {
+  color: #666;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.text-muted {
+  color: #999;
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+.subdivision-stats {
+  background: rgba(118, 75, 162, 0.05);
+  padding: 0.5rem;
+  border-radius: 6px;
+  margin: 1rem 0;
+  text-align: center;
+  color: #764ba2;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.subdivision-actions {
+  margin: 1rem 0;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 6px;
+}
+
+.subdivision-actions label {
+  display: block;
+  color: #555;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.subdivision-actions select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 2px solid #e0e7ff;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  transition: border-color 0.3s;
+}
+
+.subdivision-actions select:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.subdivision-stations {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e0e7ff;
+}
+
+.subdivision-stations strong {
+  display: block;
+  color: #764ba2;
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.station-list-small {
+  list-style: none;
+  padding: 0;
+  margin: 0.75rem 0;
+}
+
+.station-list-small li {
+  background: white;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #e0e7ff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.btn-remove-small {
+  background: #ff4444;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.3s;
+}
+
+.btn-remove-small:hover {
+  background: #cc0000;
+}
+
+.add-station-section {
+  margin-top: 0.75rem;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 6px;
+}
+
+.add-station-section label {
+  display: block;
+  color: #555;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.add-station-section select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 2px solid #e0e7ff;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  transition: border-color 0.3s;
+}
+
+.add-station-section select:focus {
+  outline: none;
+  border-color: #667eea;
 }
 
 /* Responsive */

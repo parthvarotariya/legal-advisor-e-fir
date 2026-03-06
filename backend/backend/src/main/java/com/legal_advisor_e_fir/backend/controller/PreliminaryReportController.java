@@ -77,4 +77,11 @@ public class PreliminaryReportController {
         preliminaryReportService.deletePreliminaryReport(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/subdivision/{subdivisionId}")
+    public ResponseEntity<List<PreliminaryReportResponseDto>> getBySubdivisionId(
+            @PathVariable Long subdivisionId) {
+        List<PreliminaryReportResponseDto> reports = preliminaryReportService.findBySubdivisionId(subdivisionId);
+        return ResponseEntity.ok(reports);
+    }
 }

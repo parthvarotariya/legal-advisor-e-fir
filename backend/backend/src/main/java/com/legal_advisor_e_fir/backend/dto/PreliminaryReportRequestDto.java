@@ -63,4 +63,21 @@ public class PreliminaryReportRequestDto {
 
     @NotNull(message = "Station ID is required")
     private Long stationId;
+
+    // ==========================================
+    // NEW FIELDS FOR BNSS 2023 PE PROTOCOL
+    // ==========================================
+
+    // 1. Authorization
+    private Long permissionGrantedByDspId; // Tracks the DSP who allowed the PE
+    private String peCategory; // e.g., "Matrimonial", "Commercial", "Medical Negligence"
+
+    // 2. Timeline Tracking (Mandatory 14 days)
+    private LocalDate peStartDate;
+    private LocalDate peDeadline; // Should be calculated as peStartDate + 14 days
+
+    // 3. Closure
+    @Size(max = 1000, message = "Reason for refusal cannot exceed 1000 characters")
+    private String reasonForRefusal; // If no FIR is registered, why?
+    private Boolean informantNotifiedOfRefusal;
 }

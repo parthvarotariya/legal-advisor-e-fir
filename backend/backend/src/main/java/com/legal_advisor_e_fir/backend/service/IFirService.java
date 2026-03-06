@@ -4,7 +4,7 @@ import com.legal_advisor_e_fir.backend.dto.FirFromReportRequestDto;
 import com.legal_advisor_e_fir.backend.dto.FirRequestDto;
 import com.legal_advisor_e_fir.backend.dto.FirResponseDto;
 import com.legal_advisor_e_fir.backend.model.Fir;
-import com.legal_advisor_e_fir.backend.model.fir_status;
+import com.legal_advisor_e_fir.backend.model.FirStatus;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -19,7 +19,7 @@ public interface IFirService {
 
     FirResponseDto assignInvestigatingOfficer(Long firId, Long policeId);
     
-    FirResponseDto updateFirStatus(Long firId, fir_status status);
+    FirResponseDto updateFirStatus(Long firId, FirStatus status);
     
     FirResponseDto updateIpcSections(Long firId, String ipcSections);
 
@@ -33,19 +33,19 @@ public interface IFirService {
 
     List<FirResponseDto> getFirsByStation(Long stationId);
     
-    List<FirResponseDto> getFirsByStationAndStatus(Long stationId, fir_status status);
+    List<FirResponseDto> getFirsByStationAndStatus(Long stationId, FirStatus status);
 
     List<FirResponseDto> getFirsByInvestigatingOfficer(Long policeId);
     
-    List<FirResponseDto> getFirsByInvestigatingOfficerAndStatus(Long policeId, fir_status status);
+    List<FirResponseDto> getFirsByInvestigatingOfficerAndStatus(Long policeId, FirStatus status);
     
     List<FirResponseDto> getUnassignedFirsByStation(Long stationId);
 
-    List<FirResponseDto> getFirsByStatus(fir_status status);
+    List<FirResponseDto> getFirsByStatus(FirStatus status);
 
     List<FirResponseDto> getFirsByDistrict(String district);
     
-    List<FirResponseDto> getFirsByDistrictAndStatus(String district, fir_status status);
+    List<FirResponseDto> getFirsByDistrictAndStatus(String district, FirStatus status);
 
     List<FirResponseDto> getFirsByCrimeCategory(String crimeCategory);
 
@@ -63,11 +63,13 @@ public interface IFirService {
     
     List<FirResponseDto> searchFirsByDescription(String keyword);
 
-    long countFirsByStatus(fir_status status);
+    long countFirsByStatus(FirStatus status);
     
     long countFirsByStation(Long stationId);
     
     long countFirsByInvestigatingOfficer(Long policeId);
 
     void deleteFir(Long firId);
+
+    List<FirResponseDto> getFirsBySubdivision(Long subdivisionId);
 }
