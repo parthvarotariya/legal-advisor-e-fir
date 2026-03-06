@@ -44,6 +44,8 @@ const PoliceLoginPage = () => {
         navigate('/police/pi-dashboard');
       } else if (police.role === 'INVESTIGATING_OFFICER') {
         navigate('/police/psi-dashboard');
+      } else if (police.role === 'DEPUTY_SUPRINTENDENT') {
+        navigate('/police/dsp-dashboard');
       } else {
         navigate('/police/dashboard');
       }

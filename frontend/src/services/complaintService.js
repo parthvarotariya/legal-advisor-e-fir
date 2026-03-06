@@ -52,7 +52,7 @@ const extractComplaints = (data) => {
             actualCategory: actualCatMatch ? (actualCatMatch[1] === 'null' ? null : actualCatMatch[1].replace(/"/g, '')) : null,
             predictedCategory: predCatMatch ? predCatMatch[1] : '',
             createdAt: createdMatch ? createdMatch[1] : '',
-            status: statusMatch ? statusMatch[1] : 'PENDING'
+            status: statusMatch ? statusMatch[1] : 'RECEIVED'
           });
         }
       }

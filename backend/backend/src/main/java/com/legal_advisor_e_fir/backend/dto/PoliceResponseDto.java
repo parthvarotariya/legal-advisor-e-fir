@@ -20,6 +20,8 @@ public class PoliceResponseDto {
     private Long stationId;
     private String stationName;
     private String stationCode;
+    private Long subdivisionId;
+    private String subdivisionName;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
@@ -29,6 +31,7 @@ public class PoliceResponseDto {
     public PoliceResponseDto(Long policeId, String name, String badgeNumber, String rank, 
                             String email, String mobileNumber, Role role, 
                             Long stationId, String stationName, String stationCode,
+                            Long subdivisionId, String subdivisionName,
                             LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.policeId = policeId;
         this.name = name;
@@ -40,6 +43,8 @@ public class PoliceResponseDto {
         this.stationId = stationId;
         this.stationName = stationName;
         this.stationCode = stationCode;
+        this.subdivisionId = subdivisionId;
+        this.subdivisionName = subdivisionName;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }

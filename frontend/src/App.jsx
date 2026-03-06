@@ -10,7 +10,9 @@ import SuperAdminPage from './pages/admin/SuperAdminPage';
 import AdminLoginPage from './pages/admin/AdminLoginPage';
 import PoliceLoginPage from './pages/police/PoliceLoginPage';
 import PoliceDashboardPage from './pages/police/PoliceDashboardPage';
+import PIDashboardPage from './pages/police/PIDashboardPage';
 import PsiDashboardPage from './pages/police/PsiDashboardPage';
+import DSPDashboardPage from './pages/police/DSPDashboardPage';
 import './App.css';
 
 function App() {
@@ -27,8 +29,9 @@ function App() {
           <Route path="/admin/login" element={<AdminLoginPage />} />
           <Route path="/super-admin" element={<SuperAdminPage />} />
           <Route path="/police/login" element={<PoliceLoginPage />} />
-          <Route path="/police/pi-dashboard" element={<PoliceDashboardPage />} />
+          <Route path="/police/pi-dashboard" element={<PIDashboardPage />} />
           <Route path="/police/psi-dashboard" element={<PsiDashboardPage />} />
+          <Route path="/police/dsp-dashboard" element={<DSPDashboardPage />} />
           <Route path="/police/dashboard" element={<PoliceDashboardPage />} />
         </Routes>
       </Router>

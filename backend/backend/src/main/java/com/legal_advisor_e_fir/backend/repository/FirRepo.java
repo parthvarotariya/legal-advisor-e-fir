@@ -1,7 +1,7 @@
 package com.legal_advisor_e_fir.backend.repository;
 
 import com.legal_advisor_e_fir.backend.model.Fir;
-import com.legal_advisor_e_fir.backend.model.fir_status;
+import com.legal_advisor_e_fir.backend.model.FirStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -20,26 +20,26 @@ public interface FirRepo extends JpaRepository<Fir, Long> {
 
     List<Fir> findByPoliceStation_StationId(Long stationId);
 
-    List<Fir> findByStatus(fir_status status);
+    List<Fir> findByStatus(FirStatus status);
 
-    List<Fir> findByPoliceStation_StationIdAndStatus(Long stationId, fir_status status);
+    List<Fir> findByPoliceStation_StationIdAndStatus(Long stationId, FirStatus status);
 
     List<Fir> findByInvestigatingOfficer_PoliceId(Long policeId);
 
     // Find FIRs by investigating officer and status
-    List<Fir> findByInvestigatingOfficer_PoliceIdAndStatus(Long policeId, fir_status status);
+    List<Fir> findByInvestigatingOfficer_PoliceIdAndStatus(Long policeId, FirStatus status);
 
     // Find FIRs by district
     List<Fir> findByDistrict(String district);
 
     // Find FIRs by district and status
-    List<Fir> findByDistrictAndStatus(String district, fir_status status);
+    List<Fir> findByDistrictAndStatus(String district, FirStatus status);
 
     // Find FIRs by crime category
     List<Fir> findByCrimeCategory(String crimeCategory);
 
     // Find FIRs by crime category and status
-    List<Fir> findByCrimeCategoryAndStatus(String crimeCategory, fir_status status);
+    List<Fir> findByCrimeCategoryAndStatus(String crimeCategory, FirStatus status);
 
     // Find FIRs by informant contact (to check if citizen has filed FIRs before)
     List<Fir> findByInformantContact(String informantContact);
@@ -66,7 +66,7 @@ public interface FirRepo extends JpaRepository<Fir, Long> {
     List<Fir> findTop10ByPoliceStation_StationIdOrderByRegisteredAtDesc(Long stationId);
 
     // Count FIRs by status
-    long countByStatus(fir_status status);
+    long countByStatus(FirStatus status);
 
     // Count FIRs by police station
     long countByPoliceStation_StationId(Long stationId);
@@ -78,11 +78,13 @@ public interface FirRepo extends JpaRepository<Fir, Long> {
 
     List<Fir> findByPoliceStation_StationIdAndInvestigatingOfficerIsNull(Long stationId);
 
-    List<Fir> findByStatusIn(List<fir_status> statuses);
+    List<Fir> findByStatusIn(List<FirStatus> statuses);
 
-    List<Fir> findByPoliceStation_StationIdAndStatusIn(Long stationId, List<fir_status> statuses);
+    List<Fir> findByPoliceStation_StationIdAndStatusIn(Long stationId, List<FirStatus> statuses);
 
     Optional<Fir> findByComplaint_Id(Long complaintId);
 
     boolean existsByComplaint_Id(Long complaintId);
+
+    List<Fir> findByPoliceStation_Subdivision_SubdivisionId(Long subdivisionId);
 }

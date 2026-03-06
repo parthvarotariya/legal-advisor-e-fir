@@ -11,8 +11,8 @@ import lombok.Setter;
 public class PoliceStationRequestDto {
     @NotBlank(message = "Station code is required")
     @Pattern(
-            regexp = "^[A-Z0-9]{4,10}$",
-            message = "Station code must be 4-10 characters long and contain only uppercase letters and numbers"
+            regexp = "^[A-Z0-9-]{4,10}$",
+            message = "Station code must be 4-10 characters long and contain only uppercase letters, numbers, and hyphens"
     )
     private String stationCode;
     
@@ -31,4 +31,6 @@ public class PoliceStationRequestDto {
     @NotBlank(message = "State is required")
     @Size(min = 2, max = 50, message = "State name must be between 2 and 50 characters")
     private String state;
+
+    private Long subdivisionId;
 }

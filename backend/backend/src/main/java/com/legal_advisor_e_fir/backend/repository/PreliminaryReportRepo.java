@@ -21,4 +21,6 @@ public interface PreliminaryReportRepo extends JpaRepository<PreliminaryReport, 
     List<PreliminaryReport> findByCognizableOffence(Boolean cognizableOffence);
 
     List<PreliminaryReport> findByCrimeCategory(String crimeCategory);
+
+    List<PreliminaryReport> findByStation_Subdivision_SubdivisionId(Long subdivisionId);
 }

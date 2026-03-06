@@ -5,9 +5,11 @@ import com.legal_advisor_e_fir.backend.exceptions.InvalidCredentialsException;
 import com.legal_advisor_e_fir.backend.exceptions.ResourceNotFoundException;
 import com.legal_advisor_e_fir.backend.model.Police;
 import com.legal_advisor_e_fir.backend.model.PoliceStation;
+import com.legal_advisor_e_fir.backend.model.Subdivision;
 import com.legal_advisor_e_fir.backend.model.User;
 import com.legal_advisor_e_fir.backend.repository.PoliceRepo;
 import com.legal_advisor_e_fir.backend.repository.PoliceStationRepo;
+import com.legal_advisor_e_fir.backend.repository.SubdivisionRepository;
 import com.legal_advisor_e_fir.backend.repository.UserRepo;
 import io.jsonwebtoken.Jwt;
 import jakarta.transaction.Transactional;
@@ -21,16 +23,18 @@ public class AuthService implements IAuthService{
     private final UserRepo userRepo;
     private final PoliceRepo policeRepo;
     private final PoliceStationRepo policeStationRepo;
+    private final SubdivisionRepository subdivisionRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
 
     public AuthService(@Autowired UserRepo userRepo, @Autowired PoliceRepo policeRepo, @Autowired PasswordEncoder passwordEncoder,
-                       @Autowired PoliceStationRepo policeStationRepo, @Autowired JwtUtil jwtUtil)
+                       @Autowired PoliceStationRepo policeStationRepo, @Autowired SubdivisionRepository subdivisionRepository, @Autowired JwtUtil jwtUtil)
     {
         this.userRepo = userRepo;
         this.policeRepo = policeRepo;
         this.passwordEncoder = passwordEncoder;
         this.policeStationRepo = policeStationRepo;
+        this.subdivisionRepository = subdivisionRepository;
         this.jwtUtil = jwtUtil;
     }
     @Override
@@ -172,9 +176,23 @@ public class AuthService implements IAuthService{
         response.setEmail(police.getEmail());
         response.setMobileNumber(police.getMobileNumber());
         response.setRole(police.getRole());
-        response.setStationId(police.getPoliceStation().getStationId());
-        response.setStationName(police.getPoliceStation().getStationName());
-        response.setStationCode(police.getPoliceStation().getStationCode());
+        
+        // Handle null police station (e.g., for DSP officers assigned to subdivisions)
+        if (police.getPoliceStation() != null) {
+            response.setStationId(police.getPoliceStation().getStationId());
+            response.setStationName(police.getPoliceStation().getStationName());
+            response.setStationCode(police.getPoliceStation().getStationCode());
+        }
+        
+        // Include subdivision info for DSP officers
+        if (police.getRole() == com.legal_advisor_e_fir.backend.model.Role.DEPUTY_SUPRINTENDENT) {
+            subdivisionRepository.findByDspOfficer_PoliceId(police.getPoliceId())
+                .ifPresent(subdivision -> {
+                    response.setSubdivisionId(subdivision.getSubdivisionId());
+                    response.setSubdivisionName(subdivision.getSubdivisionName());
+                });
+        }
+        
         response.setCreatedAt(police.getCreatedAt());
         response.setUpdatedAt(police.getUpdatedAt());
         return response;

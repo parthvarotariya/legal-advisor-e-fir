@@ -502,6 +502,19 @@
   margin-bottom: 2rem;
 }
 
+.fir-details-section {
+  margin-bottom: 2rem;
+}
+
+.fir-details-section h3 {
+  font-size: 1.3rem;
+  color: #1e40af;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .description-section h3,
 .incident-details h3,
 .officer-info h3 {

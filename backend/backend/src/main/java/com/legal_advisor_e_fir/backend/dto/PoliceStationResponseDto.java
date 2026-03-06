@@ -12,4 +12,16 @@ public class PoliceStationResponseDto {
     private String address;
     private String district;
     private String state;
+
+    /**
+     * ID of the subdivision supervising this station.
+     * Null if not assigned to any subdivision.
+     */
+    private Long subdivisionId;
+
+    /**
+     * Name of the subdivision supervising this station.
+     * Null if not assigned to any subdivision.
+     */
+    private String subdivisionName;
 }

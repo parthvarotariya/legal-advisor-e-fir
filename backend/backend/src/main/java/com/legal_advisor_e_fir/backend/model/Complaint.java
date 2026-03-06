@@ -1,5 +1,6 @@
 package com.legal_advisor_e_fir.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +20,7 @@ public class Complaint {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = true)
+    @Column(nullable = true, columnDefinition = "TEXT")
     private String description;
 
 
@@ -37,8 +38,8 @@ public class Complaint {
     private LocalDateTime updatedAt;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private complaint_status status = complaint_status.PENDING;
+    @Column(nullable = false, columnDefinition = "varchar(50)")
+    private ComplaintStatus status = ComplaintStatus.RECEIVED;
 
     public Complaint(){
 
@@ -46,14 +47,17 @@ public class Complaint {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id",nullable = false)
+    @JsonIgnoreProperties({"complaintList", "password"})
     private User user;
 
     @ManyToOne
     @JoinColumn(name="station_id")
+    @JsonIgnoreProperties({"complaints", "policeOfficers", "subdivision"})
     private PoliceStation policeStation;
 
     @ManyToOne
     @JoinColumn(name="assigned_officer_id")
+    @JsonIgnoreProperties({"policeStation", "password", "dspSubdivision"})
     private Police assignedOfficer;
 
     @OneToOne(mappedBy = "complaint", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

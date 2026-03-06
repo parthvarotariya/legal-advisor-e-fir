@@ -49,7 +49,8 @@ public class Fir {
     private String witnessDetails;
 
     @Enumerated(EnumType.STRING)
-    private fir_status status;
+    @Column(columnDefinition = "varchar(50)")
+    private FirStatus status;
 
 
     @ManyToOne
@@ -65,10 +66,36 @@ public class Fir {
     private Complaint complaint;
 
     private String firWrittenBy;
-
     private String informantSignaturePath;
 
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime registeredAt;
+
+    // ==========================================
+    // NEW FIELDS FOR BNSS 2023 COMPLIANCE
+    // ==========================================
+
+    // 1. Jurisdiction & Zero FIR
+    @Column(nullable = false)
+    private Boolean isZeroFir = false;
+    private String destinationPoliceStation; // If Zero FIR, where is it going?
+
+    // 2. Electronic Communication (e-FIR)
+    @Column(nullable = false)
+    private Boolean isEfir = false;
+    //private String generalDiaryReference; //not now
+    private LocalDateTime signatureDeadline; // Must sign within 3 days
+    private Boolean isSignatureObtained;
+
+    // 3. Vulnerable Victim Protection
+    @Column(nullable = false)
+    private Boolean isVictimWoman = false;
+    private Boolean recordedByWomanOfficer;
+    
+    @Column(nullable = false)
+    private Boolean isDisabledVictim = false;
+    private String interpreterOrEducatorName;
+    private String videoRecordingPath; // Mandatory if victim is disabled
+    private Boolean isMagistrateStatementRecorded;
 }

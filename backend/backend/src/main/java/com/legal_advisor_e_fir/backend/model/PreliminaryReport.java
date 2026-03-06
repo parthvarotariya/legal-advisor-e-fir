@@ -86,4 +86,21 @@ public class PreliminaryReport {
     @ManyToOne
     @JoinColumn(name = "station_id")
     private PoliceStation station;
+
+    // ==========================================
+    // NEW FIELDS FOR BNSS 2023 PE PROTOCOL
+    // ==========================================
+
+    // 1. Authorization
+    private Long permissionGrantedByDspId; // Tracks the DSP who allowed the PE
+    private String peCategory; // e.g., "Matrimonial", "Commercial", "Medical Negligence"
+
+    // 2. Timeline Tracking (Mandatory 14 days)
+    private LocalDate peStartDate;
+    private LocalDate peDeadline; // Should be calculated as peStartDate + 14 days
+
+    // 3. Closure
+    @Column(length = 1000)
+    private String reasonForRefusal; // If no FIR is registered, why?
+    private Boolean informantNotifiedOfRefusal;
 }

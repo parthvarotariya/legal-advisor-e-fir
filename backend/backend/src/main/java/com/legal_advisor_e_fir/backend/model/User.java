@@ -1,5 +1,6 @@
 package com.legal_advisor_e_fir.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -55,5 +56,6 @@ public class User {
     }
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Complaint> complaintList;
 }

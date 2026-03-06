@@ -24,6 +24,14 @@ public class PoliceStation{
     private String district;
     private String state;
 
+    /**
+     * Optional reference to the subdivision that supervises this police station.
+     * Can be null if the station is not assigned to any subdivision yet.
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "subdivision_id")
+    private Subdivision subdivision;
+
     @OneToMany(mappedBy = "policeStation",fetch = FetchType.LAZY)
     private List<Police> policeList;
 

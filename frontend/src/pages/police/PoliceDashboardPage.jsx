@@ -161,7 +161,7 @@ const PoliceDashboardPage = () => {
         )
       );
       
-      if (newStatus === 'CLOSED') {
+      if (newStatus === 'CLOSED_NO_CRIME' || newStatus === 'FIR_REGISTERED') {
         setSelectedComplaint(null);
       }
     } catch (err) {
@@ -172,7 +172,7 @@ const PoliceDashboardPage = () => {
 
   const handleAssignOfficer = async (complaintId, officerId) => {
     try {
-      const currentStatus = selectedComplaint ? selectedComplaint.status : 'PENDING';
+      const currentStatus = selectedComplaint ? selectedComplaint.status : 'RECEIVED';
       await api.put(`/complaints/${complaintId}/status`, { 
         status: currentStatus,
         officerId: officerId 
@@ -222,10 +222,12 @@ const PoliceDashboardPage = () => {
 
   const getStatusBadge = (status) => {
     const statusClasses = {
-      'PENDING': 'status-pending',
-      'READ': 'status-read',
-      'UNDER_REVIEW': 'status-investigating',
-      'CLOSED': 'status-closed'
+      'RECEIVED': 'status-pending',
+      'PE_PENDING_DSP_APPROVAL': 'status-read',
+      'PE_ASSIGNED': 'status-read',
+      'PE_SUBMITTED': 'status-investigating',
+      'FIR_REGISTERED': 'status-closed',
+      'CLOSED_NO_CRIME': 'status-closed'
     };
     return statusClasses[status] || 'status-pending';
   };
@@ -309,15 +311,15 @@ const PoliceDashboardPage = () => {
           <div className="stat-card pending">
             <div className="stat-icon">⏳</div>
             <div className="stat-info">
-              <h3>{complaints.filter(c => c.status === 'PENDING').length}</h3>
-              <p>Pending</p>
+              <h3>{complaints.filter(c => c.status === 'RECEIVED').length}</h3>
+              <p>Fresh Complaints</p>
             </div>
           </div>
           <div className="stat-card read">
             <div className="stat-icon">👁️</div>
             <div className="stat-info">
-              <h3>{complaints.filter(c => c.status === 'READ').length}</h3>
-              <p>Under Review</p>
+              <h3>{complaints.filter(c => c.status === 'PE_PENDING_DSP_APPROVAL' || c.status === 'PE_ASSIGNED' || c.status === 'PE_SUBMITTED').length}</h3>
+              <p>PE in Progress</p>
             </div>
           </div>
           {isPI && (
@@ -558,34 +560,52 @@ const PoliceDashboardPage = () => {
             </div>
             <div className="modal-footer">
               <div style={{display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: 'flex-end'}}>
-                {selectedComplaint.status === 'PENDING' && (
+                {selectedComplaint.status === 'RECEIVED' && (
                   <button 
                     className="btn-action btn-mark-read"
-                    onClick={() => handleUpdateStatus(selectedComplaint.id, 'READ')}
+                    onClick={() => handleUpdateStatus(selectedComplaint.id, 'PE_PENDING_DSP_APPROVAL')}
                   >
-                    ✓ Mark as Read
+                    ✓ Request PE (DSP Approval)
                   </button>
                 )}
-                {(selectedComplaint.status === 'READ' || selectedComplaint.status === 'PENDING') && (
+                {(selectedComplaint.status === 'PE_PENDING_DSP_APPROVAL') && (
                   <button 
                     className="btn-action"
                     style={{backgroundColor: '#3498db'}}
-                    onClick={() => handleUpdateStatus(selectedComplaint.id, 'UNDER_REVIEW')}
+                    onClick={() => handleUpdateStatus(selectedComplaint.id, 'PE_ASSIGNED')}
                   >
-                    🔍 Under Review
+                    🔍 Assign PE to SI
                   </button>
                 )}
-                {selectedComplaint.status !== 'CLOSED' && (
+                {selectedComplaint.status === 'PE_ASSIGNED' && (
                   <button 
                     className="btn-action"
-                    style={{backgroundColor: '#27ae60'}}
-                    onClick={() => {
-                      const category = prompt('Enter actual crime category (or leave blank):');
-                      handleUpdateStatus(selectedComplaint.id, 'CLOSED', category || null);
-                    }}
+                    style={{backgroundColor: '#9b59b6'}}
+                    onClick={() => handleUpdateStatus(selectedComplaint.id, 'PE_SUBMITTED')}
                   >
-                    ✔️ Close Complaint
+                    📄 Mark PE as Submitted
                   </button>
+                )}
+                {selectedComplaint.status !== 'CLOSED_NO_CRIME' && selectedComplaint.status !== 'FIR_REGISTERED' && (
+                  <>
+                    <button 
+                      className="btn-action"
+                      style={{backgroundColor: '#27ae60'}}
+                      onClick={() => {
+                        const category = prompt('Enter actual crime category (or leave blank):');
+                        handleUpdateStatus(selectedComplaint.id, 'FIR_REGISTERED', category || null);
+                      }}
+                    >
+                      ✔️ Register FIR
+                    </button>
+                    <button 
+                      className="btn-action"
+                      style={{backgroundColor: '#e74c3c'}}
+                      onClick={() => handleUpdateStatus(selectedComplaint.id, 'CLOSED_NO_CRIME')}
+                    >
+                      ❌ Close (No Crime)
+                    </button>
+                  </>
                 )}
                 <button className="btn-action btn-secondary" onClick={handleCloseModal}>
                   Close
